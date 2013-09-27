@@ -33,7 +33,7 @@ void Text::mousePressEvent(QMouseEvent* event)
     _startPoint = event->pos();
 
     bool ok;
-    QString text = QInputDialog::getText(NULL, TEXT_SHAPE_DIALOG_TITLE, TEXT_SHAPE_LABEL_NAME, QLineEdit::Normal, TEXT_SHAPE_FIELD_DIALOG, &ok);
+    QString text = QInputDialog::getText(NULL, tr("Text"), tr("Text"), QLineEdit::Normal, tr("Enter you're text here"), &ok);
 
     if (ok && !text.isEmpty()){
         qDebug("TEXTE changed");

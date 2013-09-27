@@ -35,8 +35,3 @@ void FreeHand::mouseMoveEvent(QMouseEvent* event)
     _drawed = true;
     emit drawed();
 }
-
-void FreeHand::mouseReleaseEvent(QMouseEvent* event)
-{
-
-}

@@ -20,7 +20,6 @@ private:
 public slots:
     void mousePressEvent(QMouseEvent* event);
     void mouseMoveEvent(QMouseEvent* event);
-    void mouseReleaseEvent(QMouseEvent* event);
 };
 
 #endif // FREEHAND_H

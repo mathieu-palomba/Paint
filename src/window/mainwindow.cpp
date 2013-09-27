@@ -189,11 +189,6 @@ void MainWindow::_createActions()
     dashDotDotLineAction.append("&");
     dashDotDotLineAction.append(DASH_DOT_DOT_LINE_PEN_STYLE);
 
-    // Help menu
-    QString aboutAction;
-    aboutAction.append("&");
-    aboutAction.append(ABOUT_SUBMENU_OF_HELP_MENU_NAME);
-
     // Create action for File menu
     _newAction = new QAction(QIcon(":/new_icon"), tr("&New"), this);
     _newAction->setShortcut(QKeySequence(QKeySequence::New));
@@ -265,7 +260,7 @@ void MainWindow::_createActions()
     _dashDotDotLineAction->setCheckable(true);
 
     // Create action for Help menu
-    _aboutAction = new QAction(QIcon(":/about"), aboutAction, this);
+    _aboutAction = new QAction(QIcon(":/about"), tr("&About"), this);
     _aboutAction->setShortcut(QKeySequence(ABOUT_SHORTCUT.c_str()));                // Define the ABOUT_SHORTCUT as shortcut for the "About QAction"
 
 
@@ -411,7 +406,7 @@ void MainWindow::saveAction()
     {
         QStringList filesName = filename.split(".");
         _myPainter->getBuffer().save(filename, filesName.at(1).toStdString().c_str());
-        qDebug("%s", filename.toStdString().c_str());//qDebug(filename.join(",").toAscii());
+        qDebug("%s", filename.toStdString().c_str());
     }
 }
 
@@ -422,7 +417,7 @@ void MainWindow::closeEvent(QCloseEvent* event)
 
 void MainWindow::exitAction(QCloseEvent* event)
 {
-    bool response = askUser(EXIT_DIALOG_TITLE, TEXT_INT_EXIT_DIALOG);
+    bool response = askUser(tr("Paint"), tr("Do you really want to exit?"));
 
     if (response){
         qDebug("Yes was clicked");
@@ -451,9 +446,9 @@ bool MainWindow::askUser(QString title, QString question)
 
 void MainWindow::aboutAction()
 {
-    QMessageBox msg(QMessageBox::Information, ABOUT_DIALOG_TITLE, TEXT_IN_ABOUT_DIALOG, QMessageBox::Ok);
-    QPixmap image = QPixmap(ENIB_LOGO_NAME_IN_QRC);     // Permet de charger le logo qui sera dans la QMessageBox
-    //image = image.scaled(QSize(200,100));             // Permet de redimenssioner le logo enib pour faire rentrer le texte sur une ligne
+    QMessageBox msg(QMessageBox::Information, tr("Informations sur projet Paint"), tr("<strong>Projet Paint</strong><br><i>Année 2013-2014</i><br /><br><br />Développé par Kévin GEORGES et Mathieu PALOMBA<br><br />"), QMessageBox::Ok);
+    QPixmap image = QPixmap(":/enib_logo");     // Permet de charger le logo qui sera dans la QMessageBox
+    //image = image.scaled(QSize(200,100));     // Permet de redimenssioner le logo enib pour faire rentrer le texte sur une ligne
     msg.setIconPixmap(image);
     msg.setWindowIcon(QIcon(":/about_icon"));
     msg.exec();
