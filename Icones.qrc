@@ -1,0 +1,28 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+	<qresource>
+		<file alias="paint_icon">images/paint_icon.png</file>
+		<file alias="new_icon">images/new_icon.png</file>
+		<file alias="open_icon">images/open_icon.png</file>
+		<file alias="save_icon">images/save_icon.png</file>
+		<file alias="exit_icon">images/exit_icon.png</file>
+		<file alias="line_icon">images/line_icon.png</file>
+		<file alias="rectangle_icon">images/rectangle_icon.png</file>
+		<file alias="circle_icon">images/circle_icon.png</file>
+		<file alias="polygon_icon">images/polygon_icon.png</file>
+		<file alias="text_icon">images/text_icon.png</file>
+		<file alias="solid_line_icon">images/solid_line_icon.png</file>
+		<file alias="dot_line_icon">images/dot_line_icon.png</file>
+		<file alias="dash_line_icon">images/dash_line_icon.png</file>
+		<file alias="dash_dot_line_icon">images/dash_dot_line_icon.png</file>
+		<file alias="dash_dot_dot_line_icon">images/dash_dot_dot_line_icon.png</file>
+		<file alias="change_shape_icon">images/change_shape_icon.png</file>
+		<file alias="change_color_icon">images/change_color_icon.png</file>
+		<file alias="pen_color_icon">images/pen_color_icon.png</file>
+		<file alias="fill_out_color_icon">images/fill_out_color_icon.png</file>
+		<file alias="pen_style_icon">images/pen_style_icon.png</file>
+		<file alias="about">images/about_icon.png</file>
+		<file alias="enib_logo">images/enib_logo.jpg</file>
+
+	</qresource>
+</RCC>
