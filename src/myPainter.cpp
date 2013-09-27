@@ -1,5 +1,4 @@
 #include "myPainter.h"
-
 #include <QInputDialog>
 #include <QDebug>
 #include "shapes/shape.h"
@@ -35,27 +34,7 @@ void MyPainter::mousePressEvent(QMouseEvent* event)
             _brush.setStyle(Qt::SolidPattern);
         }
 
-
-        if( _shape )
-        {
-            if( _shape->isDrawed() )
-            {
-                qDebug()<< "Draw finish";
-                // If the shape exist (the factory doesn't return NULL)
-                if( _shape )
-                {
-                    // Generate the mouse event to the shape
-                    qDebug("end draw");
-                    _shape->draw( _buffer );
-
-                    qDebug() << "delete";
-                    disconnect( _shape, SIGNAL(drawed()), this, SLOT(shapeDrawed()));
-                    delete _shape;
-                }
-
-                _shape = NULL;
-            }
-        }
+        deleteShape();
 
         if ( !_shape )
         {
@@ -135,21 +114,13 @@ void MyPainter::mouseReleaseEvent(QMouseEvent* event)
             _shape->mouseReleaseEvent( event );
             qDebug("Released event");
         }
+
         // We call the paintEvent method
         update();
+
+        deleteShape();
     }
 }
-
- void MyPainter::shapeDrawed()
- {
-     if( _shape )
-     {
-         qDebug("shapeDraw event");
-         _buffer2.fill( Qt::transparent );
-         _shape->draw( _buffer2 );
-         qDebug("shapeDrawed event");
-     }
- }
 
 void MyPainter::paintEvent(QPaintEvent* event)
 {
@@ -163,6 +134,41 @@ void MyPainter::paintEvent(QPaintEvent* event)
         qDebug("Paint event");
         paintWindow.drawPixmap(0, 0, _buffer2);     // Dessine la pixmap donnée à la position (x, y).
         qDebug("Painted event");
+    }
+}
+
+void MyPainter::shapeDrawed()
+{
+    if( _shape )
+    {
+        qDebug("shapeDraw event");
+        _buffer2.fill( Qt::transparent );
+        _shape->draw( _buffer2 );
+        qDebug("shapeDrawed event");
+    }
+}
+
+void MyPainter::deleteShape()
+{
+    if( _shape )
+    {
+        if( _shape->isDrawed() )
+        {
+            qDebug()<< "Draw finish";
+            // If the shape exist (the factory doesn't return NULL)
+            if( _shape )
+            {
+                // Generate the mouse event to the shape
+                qDebug("end draw");
+                _shape->draw( _buffer );
+
+                qDebug() << "delete";
+                disconnect( _shape, SIGNAL(drawed()), this, SLOT(shapeDrawed()));
+                delete _shape;
+            }
+
+            _shape = NULL;
+        }
     }
 }
 

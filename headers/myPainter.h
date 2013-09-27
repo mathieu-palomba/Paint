@@ -40,6 +40,8 @@ private:
 
     Shape* _shape;
 
+    void deleteShape();
+
 public slots:
     void erase();
     void shapeToDrawChange(QString newShapeToDraw);
