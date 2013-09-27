@@ -172,7 +172,7 @@ void MyPainter::deleteShape()
     }
 }
 
-void MyPainter::erase()
+void MyPainter::eraseScreen()
 {
     _buffer = QPixmap(_mainWindow->size());
     _buffer.fill(_windowBackgroundColor);           // Couleur de fond de la fenêtre de dessin
@@ -189,6 +189,7 @@ void MyPainter::erase()
     }
 
     qDebug("update after erase");
+
     update();
 }
 
@@ -232,12 +233,12 @@ this->_buffer = this->_buffer.scaled(this->size().width(), this->size().height()
 this->_buffer2 = this->_buffer2.scaled(this->size().width(), this->size().height());//, Qt::KeepAspectRatio);*/
 }
 
-QPixmap MyPainter::getBuffer()
+QPixmap& MyPainter::getBuffer()
 {
     return this->_buffer;
 }
 
-QPixmap MyPainter::getBuffer2()
+QPixmap& MyPainter::getBuffer2()
 {
     return this->_buffer2;
 }

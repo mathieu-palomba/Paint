@@ -19,8 +19,8 @@ public:
     ~MyPainter();
 
     void resizeEvent(QResizeEvent* event);
-    QPixmap getBuffer();
-    QPixmap getBuffer2();
+    QPixmap& getBuffer();
+    QPixmap& getBuffer2();
 
 protected:
     void mousePressEvent(QMouseEvent* event);
@@ -43,7 +43,7 @@ private:
     void deleteShape();
 
 public slots:
-    void erase();
+    void eraseScreen();
     void shapeToDrawChange(QString newShapeToDraw);
     void colorToApplyChange(QString colorMenuWhichGenerateEvent, QColor color);
     void penStyleChange(QString newPenStyle);

@@ -372,7 +372,7 @@ void MainWindow::newAction()
 
     if (response){
         qDebug("Yes was clicked");
-        _myPainter->erase();
+        _myPainter->eraseScreen();
     }
     else{
         qDebug("Cancel was clicked");
@@ -387,13 +387,8 @@ void MainWindow::openAction()
     {
         QStringList filesName = filename.split(".");
 
-        _myPainter->erase();
-        bool result = _myPainter->getBuffer().load(filename);
-
-        qDebug("%s  %s %d", filename.toStdString().c_str(), filesName.at(1).toStdString().c_str(), result);
-
-        //_myPainter->getBuffer().save(filename, filesName.at(1).toStdString().c_str());
-       //_myPainter-> getBuffer2().load(filename, filesName.at(1).toStdString().c_str());
+        _myPainter->eraseScreen();
+        _myPainter->getBuffer().load(filename, filesName.at(1).toStdString().c_str());
     }
 }
 
