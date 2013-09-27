@@ -1,6 +1,6 @@
 #include "circle.h"
 
-Circle::Circle(QPen &pen, QBrush &brush) :
+Circle::Circle(QPen& pen, QBrush& brush) :
     Shape(pen, brush)
 {
 }
@@ -21,12 +21,6 @@ void Circle::draw(QPixmap& pixmap)
     int rx = _endPoint.x() - _startPoint.x();
     int ry = _endPoint.y() - _startPoint.y();
     painter.drawEllipse(_startPoint.x(), _startPoint.y(), rx, ry);
-
-    // Draw the pixmap at the postion (x, y).
-    painter.drawPixmap(0, 0, pixmap);
-
-     // We close the painter
-    painter.end();
 }
 
 void Circle::mousePressEvent(QMouseEvent* event)

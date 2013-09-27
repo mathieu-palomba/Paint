@@ -1,7 +1,7 @@
 #include "rectangle.h"
 #include <QBrush>
 
-Rectangle::Rectangle(QPen &pen, QBrush &brush) :
+Rectangle::Rectangle(QPen& pen, QBrush& brush) :
     Shape(pen, brush)
 {
 }

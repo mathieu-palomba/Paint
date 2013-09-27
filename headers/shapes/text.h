@@ -9,7 +9,7 @@ class Text : public Shape
     Q_OBJECT
 
 public:
-    Text(QPen &pen, QBrush &brush);
+    Text(QPen& pen, QBrush& brush);
     ~Text();
 
     void draw(QPixmap& pixmap);

@@ -16,6 +16,7 @@ public:
         };
 
         enum Shape_enum{
+            freeHand,
             line,
             rectangle,
             circle,

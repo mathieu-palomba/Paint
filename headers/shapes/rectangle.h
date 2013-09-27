@@ -9,7 +9,7 @@ class Rectangle : public Shape
     Q_OBJECT
 
 public:
-    Rectangle(QPen &pen, QBrush &brush);
+    Rectangle(QPen& pen, QBrush& brush);
     ~Rectangle();
 
     void draw(QPixmap& pixmap);

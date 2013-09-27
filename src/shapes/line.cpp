@@ -1,6 +1,6 @@
 #include "line.h"
 
-Line::Line(QPen &pen, QBrush &brush) :
+Line::Line(QPen& pen, QBrush& brush) :
     Shape(pen, brush)
 {
 }

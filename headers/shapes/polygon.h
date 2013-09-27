@@ -11,7 +11,7 @@ class Polygon : public Shape
     static const int delatEnd;  // Space around the first start point, that significant the user end to draw the polygon
 
 public:
-    Polygon(QPen &pen, QBrush &brush);
+    Polygon(QPen& pen, QBrush& brush);
     ~Polygon();
 
     void draw(QPixmap& pixmap);

@@ -1,6 +1,6 @@
 #include "shape.h"
 
-Shape::Shape(QPen &pen, QBrush &brush) :
+Shape::Shape(QPen& pen, QBrush& brush) :
     _pen(pen),
     _brush(brush),
     _drawed(false)

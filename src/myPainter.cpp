@@ -7,7 +7,7 @@
 MyPainter::MyPainter(MainWindow* mainWindow){
     _mainWindow = mainWindow;
 
-    _shapeToDraw.append(LINE_SHAPE);
+    _shapeToDraw.append(FREE_HAND);
 
     _windowBackgroundColor = WINDOW_BACKGROUND_COLOR;
     _pen.setColor(QColor(PEN_COLOR));
@@ -53,6 +53,9 @@ void MyPainter::mousePressEvent(QMouseEvent* event)
             }
             else if(_shapeToDraw == TEXT_SHAPE){
                 _shape = ShapeFactory::createShape(ShapeFactory::text, _pen, _brush);
+            }
+            else if(_shapeToDraw == FREE_HAND){
+                _shape = ShapeFactory::createShape(ShapeFactory::freeHand, _pen, _brush);
             }
 
             if( _shape )

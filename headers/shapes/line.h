@@ -9,7 +9,7 @@ class Line : public Shape
     Q_OBJECT
 
 public:
-    Line(QPen &pen, QBrush &brush);
+    Line(QPen& pen, QBrush& brush);
     ~Line();
 
     void draw(QPixmap& pixmap);

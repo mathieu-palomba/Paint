@@ -1,4 +1,5 @@
 #include "shapeFactory.h"
+#include "freehand.h"
 #include "line.h"
 #include "rectangle.h"
 #include "circle.h"
@@ -34,6 +35,11 @@ Shape* ShapeFactory::createShape(Shape_enum shapeToDraw, QPen &pen, QBrush &brus
     else if(shapeToDraw == text)
     {
         return new Text(pen, brush);
+    }
+
+    else if(shapeToDraw == freeHand)
+    {
+        return new FreeHand(pen, brush);
     }
 
     return NULL;

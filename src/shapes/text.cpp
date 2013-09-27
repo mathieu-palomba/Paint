@@ -2,7 +2,7 @@
 #include "defines.h"
 #include <QInputDialog>
 
-Text::Text(QPen &pen, QBrush &brush) :
+Text::Text(QPen& pen, QBrush& brush) :
     Shape(pen, brush)
 {
 }

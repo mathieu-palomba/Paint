@@ -6,6 +6,7 @@
 		<file alias="open_icon">images/open_icon.png</file>
 		<file alias="save_icon">images/save_icon.png</file>
 		<file alias="exit_icon">images/exit_icon.png</file>
+		<file alias="free_hand_icon">images/free_hand_icon.png</file>
 		<file alias="line_icon">images/line_icon.png</file>
 		<file alias="rectangle_icon">images/rectangle_icon.png</file>
 		<file alias="circle_icon">images/circle_icon.png</file>

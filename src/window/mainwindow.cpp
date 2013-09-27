@@ -301,6 +301,7 @@ void MainWindow::_connectActions()
     _fileMenu->addAction(_quitAction);
 
     // Connect Shape actions with her menu
+    _shapeMenu->addAction(_drawFreeHandAction);
     _shapeMenu->addAction(_drawLineAction);
     _shapeMenu->addAction(_drawRectangleAction);
     _shapeMenu->addAction(_drawCircleAction);

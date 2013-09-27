@@ -9,7 +9,7 @@ class Circle : public Shape
     Q_OBJECT
 
 public:
-    Circle(QPen &pen, QBrush &brush);
+    Circle(QPen& pen, QBrush& brush);
     ~Circle();
 
     void draw(QPixmap& pixmap);

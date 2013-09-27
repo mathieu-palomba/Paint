@@ -4,7 +4,7 @@
 // Initialize the delta value
 const int Polygon::delatEnd = 5;
 
-Polygon::Polygon(QPen &pen, QBrush &brush) :
+Polygon::Polygon(QPen& pen, QBrush& brush) :
     Shape(pen, brush)
 {
 }
@@ -31,8 +31,8 @@ void Polygon::draw(QPixmap& pixmap)
     {
         if( !_drawed )
             painter.drawEllipse(_points.at(0), delatEnd, delatEnd);
-        else
-            _points.push_back( _points.at(0));
+        //else
+        //    _points.push_back( _points.at(0));
 
         QPolygon myPolygon( _points );
         myPolygon.append( _movPoint );
