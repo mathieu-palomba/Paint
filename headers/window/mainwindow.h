@@ -46,6 +46,7 @@ private:
     QAction* _saveAction;
     QAction* _quitAction;
     QActionGroup* _shapeActionGroup;
+    QAction* _drawFreeHandAction;
     QAction* _drawLineAction;
     QAction* _drawRectangleAction;
     QAction* _drawCircleAction;

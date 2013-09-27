@@ -7,7 +7,7 @@
 #define EXIT_DIALOG_TITLE "Paint"
 #define TEXT_INT_EXIT_DIALOG "Do you really want to exit?"
 
-
+#define FREE_HAND "Free hand"
 #define LINE_SHAPE "Line"
 #define RECTANGLE_SHAPE "Rectangle"
 #define CIRCLE_SHAPE "Circle"

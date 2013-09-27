@@ -98,6 +98,7 @@ void MainWindow::_createDockWidget()
 
     _toolBar->addWidget(new QLabel(tr("<b>Shapes</b>")));
     _toolBar->addSeparator();
+    _toolBar->addAction(_drawFreeHandAction);
     _toolBar->addAction(_drawLineAction);
     _toolBar->addAction(_drawRectangleAction);
     _toolBar->addAction(_drawCircleAction);
@@ -130,6 +131,10 @@ void MainWindow::_createDockWidget()
 void MainWindow::_createActions()
 {
     // Style menu --> Shape sub menu
+    QString drawFreeHandAction;
+    drawFreeHandAction.append("&");
+    drawFreeHandAction.append(FREE_HAND);
+
     QString drawLineAction;
     drawLineAction.append("&");
     drawLineAction.append(LINE_SHAPE);
@@ -203,6 +208,10 @@ void MainWindow::_createActions()
     _quitAction->setShortcut(QKeySequence(QKeySequence(QUIT_SHORTCUT.c_str())));                  // Define the EXIT_SHORTCUT as shortcut for the "Exit QAction"
 
     // Create action for File menu --> Shape sub menu
+    _drawFreeHandAction = new QAction(QIcon(":/free_hand_icon"), drawFreeHandAction, this);
+    _drawFreeHandAction->setData(FREE_HAND);                                 // setData to identify what QAction generating an event
+    _drawFreeHandAction->setCheckable(true);
+
     _drawLineAction = new QAction(QIcon(":/line_icon"), drawLineAction, this);
     _drawLineAction->setData(LINE_SHAPE);                                   // setData to identify what QAction generating an event
     _drawLineAction->setCheckable(true);
@@ -262,13 +271,14 @@ void MainWindow::_createActions()
 
     // Create action group for radiobox into the Style menu --> Shape sub menu
     _shapeActionGroup = new QActionGroup(this);
+    _shapeActionGroup->addAction(_drawFreeHandAction);
     _shapeActionGroup->addAction(_drawLineAction);
     _shapeActionGroup->addAction(_drawRectangleAction);
     _shapeActionGroup->addAction(_drawCircleAction);
     _shapeActionGroup->addAction(_drawPolygonAction);
     _shapeActionGroup->addAction(_drawTextAction);
     _shapeActionGroup->addAction(_rubberAction);
-    _drawLineAction->setChecked(true);
+    _drawFreeHandAction->setChecked(true);
 
     // Create action group for radiobox into the Style menu --> Pen style sub menu
     _penStyleActionGroup = new QActionGroup(this);
