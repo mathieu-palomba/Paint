@@ -101,7 +101,8 @@ void MyPainter::mouseMoveEvent(QMouseEvent* event)
             _shape->mouseMoveEvent( event );
 
             // We draw the shape into the buffer
-            _shape->draw( _buffer2 );
+            if(_shapeToDraw == RUBBER_SHAPE)    _shape->draw( _buffer );
+            else                                _shape->draw( _buffer2 );
 
             qDebug("Moved event");
         }

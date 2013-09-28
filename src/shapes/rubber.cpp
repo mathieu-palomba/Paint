@@ -1,7 +1,7 @@
 #include "rubber.h"
+#include <QApplication>
 
-const int Rubber::rubberHeight = 10;
-const int Rubber::rubberWidth = 10;
+const int Rubber::rubberOffset = 10;
 
 Rubber::Rubber(QPen& pen, QBrush& brush) :
     Shape(pen, brush)
@@ -16,27 +16,41 @@ void Rubber::draw(QPixmap& pixmap)
 {
     QPainter painter(&pixmap);
 
-    //_brush.setColor(Qt::black);
+    _brush.setColor(Qt::black);
 
     painter.setBrush(_brush);
 
     _pen.setWidth(1);
-    _pen.setColor(Qt::blue);
+    _pen.setColor(Qt::white);
 
     // Apply pen to the painter which draw shape
     painter.setPen(_pen);
 
     // We draw the correct shape
-    int rubberSize =_pen.width()+10;
-    painter.drawRect(_currentPoint.x()-rubberSize, _currentPoint.y()-rubberSize, rubberSize, rubberSize);
+    int rubberSize =_pen.width() + rubberOffset;
+    painter.drawRect(_currentPoint.x(), _currentPoint.y(), rubberSize, rubberSize);
 }
 
 void Rubber::mousePressEvent(QMouseEvent* event)
 {
+    QPixmap rubberCursor;
+    rubberCursor.load(":/rubber_icon");
+    rubberCursor = rubberCursor.scaled(_pen.width() + rubberOffset, _pen.width() + rubberOffset);
+
+    QApplication::setOverrideCursor(QCursor(rubberCursor));
+
     _currentPoint = event->pos();
 }
 
 void Rubber::mouseMoveEvent(QMouseEvent* event)
 {
     _currentPoint = event->pos();
+}
+
+void Rubber::mouseReleaseEvent(QMouseEvent* event)
+{
+    QApplication::restoreOverrideCursor();
+
+    _drawed = true;
+    emit drawed();
 }

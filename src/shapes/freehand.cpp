@@ -17,9 +17,7 @@ void FreeHand::draw(QPixmap& pixmap)
     // Apply pen to the painter which draw shape
     painter.setPen(_pen);
 
-    qDebug() << "draw free hand" << _pen.color() << " " << painter.brush().color();
-
-    // We draw the correct shape
+    // We draw all of the points
     for(int i=0; i<_points.size(); i++)
     {
         painter.drawPoint(_points.at(i));

@@ -6,8 +6,7 @@
 
 class Rubber : public Shape
 {
-    static const int rubberHeight;
-    static const int rubberWidth;
+    static const int rubberOffset;
 
     Q_OBJECT
 
@@ -23,6 +22,7 @@ private:
 public slots:
     void mousePressEvent(QMouseEvent* event);
     void mouseMoveEvent(QMouseEvent* event);
+    void mouseReleaseEvent(QMouseEvent* event);
 };
 
 #endif // RUBBER_H

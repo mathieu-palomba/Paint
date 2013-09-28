@@ -10,7 +10,7 @@
 #include "ui_mainwindow.h"
 
 const int MainWindow::WINDOW_WIDTH = 800;
-const int MainWindow::WINDOW_HEIGHT = 680;
+const int MainWindow::WINDOW_HEIGHT = 800;
 const string MainWindow::QUIT_SHORTCUT = "ctrl+q";
 const string MainWindow::ABOUT_SHORTCUT = "ctrl+a";
 const int MainWindow::MAX_SIZE = 10;
@@ -127,6 +127,8 @@ void MainWindow::_createDockWidget()
     _sizeWidget->setMinimum(1);
     _sizeWidget->setMaximum(MAX_SIZE);
     _toolBar->addWidget(_sizeWidget);
+
+    //_toolBar->setToolButtonStyle( Qt::ToolButtonTextUnderIcon );      // To display icon with title
 
      this->addToolBar(Qt::LeftToolBarArea, _toolBar);
 }

@@ -26,19 +26,19 @@
   </widget>
   <widget class="QToolBar" name="ToolBar">
    <property name="windowTitle">
-    <string>Main Toolbar</string>
+    <string>Main toolbar</string>
    </property>
    <property name="toolTip">
-    <string>Main Toolbar tips</string>
+    <string>Main toolbar tips</string>
    </property>
    <property name="statusTip">
     <string>Select an item to execute the associated action</string>
    </property>
    <property name="whatsThis">
-    <string>nloop</string>
+    <string/>
    </property>
    <property name="accessibleName">
-    <string>blopp</string>
+    <string/>
    </property>
    <property name="accessibleDescription">
     <string/>
