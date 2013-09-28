@@ -2,7 +2,7 @@
 #define POLYGON_H
 
 #include <QPoint>
-#include "shape.h"
+#include "shapes/shape.h"
 
 class Polygon : public Shape
 {

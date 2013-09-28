@@ -3,9 +3,9 @@
 
 #include <QMouseEvent>
 #include <QPainter>
+#include <QDebug>
 #include <qnamespace.h>
 #include <qpen.h>
-#include <QDebug>
 
 class Shape : public QObject
 {

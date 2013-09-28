@@ -1,6 +1,6 @@
-#include "myPainter.h"
 #include <QInputDialog>
 #include <QDebug>
+#include "myPainter.h"
 #include "shapes/shape.h"
 #include "factory/shapeFactory.h"
 

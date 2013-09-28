@@ -3,8 +3,7 @@
 
 #include <QPixmap>
 #include <QPen>
-#include "mainwindow.h"
-#include "defines.h"
+#include "window/mainwindow.h"
 
 class MainWindow;
 class QPaintEvent;

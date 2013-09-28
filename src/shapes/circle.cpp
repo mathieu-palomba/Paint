@@ -1,4 +1,4 @@
-#include "circle.h"
+#include "shapes/circle.h"
 
 Circle::Circle(QPen& pen, QBrush& brush) :
     Shape(pen, brush)

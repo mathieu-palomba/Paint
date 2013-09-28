@@ -1,5 +1,5 @@
-#include "rubber.h"
 #include <QApplication>
+#include "shapes/rubber.h"
 
 const int Rubber::rubberOffset = 10;
 
@@ -21,7 +21,6 @@ void Rubber::draw(QPixmap& pixmap)
 
     // We set the rubber pen color (outline)
     _pen.setColor(Qt::white);
-    _pen.setWidth(1);
 
     // Apply brush to the painter which draw shape
     painter.setBrush(_brush);

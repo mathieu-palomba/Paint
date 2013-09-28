@@ -1,13 +1,12 @@
 #include <QVBoxLayout>
-#include <QPushButton>
 #include <QColorDialog>
 #include <QMessageBox>
 #include <QCloseEvent>
 #include <QLabel>
 #include <QFileDialog>
 #include <QSpinBox>
-#include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "window/mainwindow.h"
 
 const int MainWindow::WINDOW_WIDTH = 800;
 const int MainWindow::WINDOW_HEIGHT = 800;

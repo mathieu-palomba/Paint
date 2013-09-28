@@ -1,4 +1,4 @@
-#include "line.h"
+#include "shapes/line.h"
 
 Line::Line(QPen& pen, QBrush& brush) :
     Shape(pen, brush)

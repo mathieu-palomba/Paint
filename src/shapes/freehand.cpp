@@ -1,4 +1,4 @@
-#include "freehand.h"
+#include "shapes/freehand.h"
 
 FreeHand::FreeHand(QPen& pen, QBrush& brush) :
     Shape(pen, brush)

@@ -1,6 +1,5 @@
-#include "text.h"
-#include "defines.h"
 #include <QInputDialog>
+#include "shapes/text.h"
 
 Text::Text(QPen& pen, QBrush& brush) :
     Shape(pen, brush)

@@ -29,7 +29,6 @@ SOURCES += src/main.cpp \
 
 HEADERS  += headers/window/mainwindow.h \
     headers/myPainter.h \
-    headers/defines.h \
     headers/shapes/shape.h \
     headers/shapes/freehand.h \
     headers/shapes/line.h \

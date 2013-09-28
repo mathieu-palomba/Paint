@@ -1,5 +1,4 @@
-#include "rectangle.h"
-#include <QBrush>
+#include "shapes/rectangle.h"
 
 Rectangle::Rectangle(QPen& pen, QBrush& brush) :
     Shape(pen, brush)

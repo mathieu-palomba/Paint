@@ -1,5 +1,5 @@
-#include "polygon.h"
-#include "math.h"
+#include <math.h>
+#include "shapes/polygon.h"
 
 // Initialize the delta value
 const int Polygon::delatEnd = 5;

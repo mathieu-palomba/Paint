@@ -2,7 +2,7 @@
 #define RUBBER_H
 
 #include <QPoint>
-#include "shape.h"
+#include "shapes/shape.h"
 
 class Rubber : public Shape
 {

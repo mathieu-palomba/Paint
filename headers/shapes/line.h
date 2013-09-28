@@ -2,7 +2,7 @@
 #define LINE_H
 
 #include <QPoint>
-#include "shape.h"
+#include "shapes/shape.h"
 
 class Line : public Shape
 {
@@ -15,7 +15,7 @@ public:
     void draw(QPixmap& pixmap);
 
 private:
-    QPoint _startPoint, _endPoint;
+    QPoint _startPoint, _endPoint, _test;
 
 public slots:
     void mousePressEvent(QMouseEvent* event);

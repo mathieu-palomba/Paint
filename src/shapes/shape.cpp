@@ -1,4 +1,4 @@
-#include "shape.h"
+#include "shapes/shape.h"
 
 Shape::Shape(QPen& pen, QBrush& brush) :
     _pen(pen),

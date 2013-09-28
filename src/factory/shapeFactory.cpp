@@ -1,11 +1,11 @@
-#include "shapeFactory.h"
-#include "freehand.h"
-#include "line.h"
-#include "rectangle.h"
-#include "circle.h"
-#include "polygon.h"
-#include "text.h"
-#include "rubber.h"
+#include "factory/shapeFactory.h"
+#include "shapes/freehand.h"
+#include "shapes/line.h"
+#include "shapes/rectangle.h"
+#include "shapes/circle.h"
+#include "shapes/polygon.h"
+#include "shapes/text.h"
+#include "shapes/rubber.h"
 
 ShapeFactory::ShapeFactory()
 {

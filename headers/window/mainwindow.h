@@ -3,9 +3,10 @@
 
 #include <QMainWindow>
 #include <QActionGroup>
+#include <defines.h>
+#include <string.h>
 #include "myPainter.h"
-#include "defines.h"
-#include "string.h"
+
 
 using namespace std;
 
