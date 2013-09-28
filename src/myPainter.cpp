@@ -60,6 +60,9 @@ void MyPainter::mousePressEvent(QMouseEvent* event)
             else if(_shapeToDraw == FREE_HAND){
                 _shape = ShapeFactory::createShape(ShapeFactory::freeHand, _pen, _brush);
             }
+            else if(_shapeToDraw == RUBBER_SHAPE){
+                _shape = ShapeFactory::createShape(ShapeFactory::rubber, _pen, _brush);
+            }
 
             if( _shape )
             {
@@ -99,7 +102,7 @@ void MyPainter::mouseMoveEvent(QMouseEvent* event)
 
             // We draw the shape into the buffer
             _shape->draw( _buffer2 );
-            if(_shapeToDraw == FREE_HAND)    _shape->draw( _buffer );
+
             qDebug("Moved event");
         }
 
@@ -118,6 +121,7 @@ void MyPainter::mouseReleaseEvent(QMouseEvent* event)
             qDebug("Release event");
             _buffer2.fill( Qt::transparent );
             _shape->draw( _buffer2 );
+
             _shape->mouseReleaseEvent( event );
             qDebug("Released event");
         }

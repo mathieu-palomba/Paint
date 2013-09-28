@@ -5,6 +5,7 @@
 #include "circle.h"
 #include "polygon.h"
 #include "text.h"
+#include "rubber.h"
 
 ShapeFactory::ShapeFactory()
 {
@@ -40,6 +41,11 @@ Shape* ShapeFactory::createShape(Shape_enum shapeToDraw, QPen &pen, QBrush &brus
     else if(shapeToDraw == freeHand)
     {
         return new FreeHand(pen, brush);
+    }
+
+    else if(shapeToDraw == rubber)
+    {
+        return new Rubber(pen, brush);
     }
 
     return NULL;

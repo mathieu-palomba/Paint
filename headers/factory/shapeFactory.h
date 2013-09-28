@@ -21,7 +21,8 @@ public:
             rectangle,
             circle,
             polygon,
-            text
+            text,
+            rubber
         };
 
         ShapeFactory();

@@ -106,6 +106,7 @@ void MainWindow::_createDockWidget()
     _toolBar->addAction(_drawCircleAction);
     _toolBar->addAction(_drawPolygonAction);
     _toolBar->addAction(_drawTextAction);
+    _toolBar->addAction(_rubberAction);
 
     _toolBar->addWidget(new QLabel(tr("<b>Line styles</b>")));
     _toolBar->addSeparator();
@@ -229,7 +230,7 @@ void MainWindow::_createActions()
     _drawTextAction->setData(TEXT_SHAPE);                                   // setData to identify what QAction generating an event
     _drawTextAction->setCheckable(true);
 
-    _rubberAction = new QAction(rubberAction, this);
+    _rubberAction = new QAction(QIcon(":/rubber_icon"), rubberAction, this);
     _rubberAction->setData(RUBBER_SHAPE);
     _rubberAction->setCheckable(true);
 

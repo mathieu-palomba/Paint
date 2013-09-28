@@ -12,6 +12,7 @@
 		<file alias="circle_icon">images/circle_icon.png</file>
 		<file alias="polygon_icon">images/polygon_icon.png</file>
 		<file alias="text_icon">images/text_icon.png</file>
+		<file alias="rubber_icon">images/rubber_icon.png</file>
 		<file alias="solid_line_icon">images/solid_line_icon.png</file>
 		<file alias="dot_line_icon">images/dot_line_icon.png</file>
 		<file alias="dash_line_icon">images/dash_line_icon.png</file>

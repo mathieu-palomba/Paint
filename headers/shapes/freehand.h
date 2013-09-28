@@ -15,7 +15,7 @@ public:
     void draw(QPixmap& pixmap);
 
 private:
-    QPoint _currentPoint;
+    QVector<QPoint> _points;
 
 public slots:
     void mousePressEvent(QMouseEvent* event);

@@ -20,18 +20,18 @@ void FreeHand::draw(QPixmap& pixmap)
     qDebug() << "draw free hand" << _pen.color() << " " << painter.brush().color();
 
     // We draw the correct shape
-    painter.drawPoint(_currentPoint);
+    for(int i=0; i<_points.size(); i++)
+    {
+        painter.drawPoint(_points.at(i));
+    }
 }
 
 void FreeHand::mousePressEvent(QMouseEvent* event)
 {
-    _currentPoint = event->pos();
-    _drawed = false;
+    _points.push_back(event->pos());
 }
 
 void FreeHand::mouseMoveEvent(QMouseEvent* event)
 {
-    _currentPoint = event->pos();
-    _drawed = true;
-    emit drawed();
+    _points.push_back(event->pos());
 }

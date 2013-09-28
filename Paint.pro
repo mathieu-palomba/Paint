@@ -24,7 +24,8 @@ SOURCES += src/main.cpp \
     src/shapes/circle.cpp \
     src/factory/shapeFactory.cpp \
     src/shapes/polygon.cpp \
-    src/shapes/text.cpp
+    src/shapes/text.cpp \
+    src/shapes/rubber.cpp
 
 HEADERS  += headers/window/mainwindow.h \
     headers/myPainter.h \
@@ -36,7 +37,8 @@ HEADERS  += headers/window/mainwindow.h \
     headers/shapes/circle.h \
     headers/factory/shapeFactory.h \
     headers/shapes/polygon.h \
-    headers/shapes/text.h
+    headers/shapes/text.h \
+    headers/shapes/rubber.h
 
 FORMS    += mainwindow.ui
 
