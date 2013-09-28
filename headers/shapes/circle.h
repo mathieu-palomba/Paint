@@ -20,7 +20,6 @@ private:
 public slots:
     void mousePressEvent(QMouseEvent* event);
     void mouseMoveEvent(QMouseEvent* event);
-
 };
 
 #endif // CIRCLE_H
