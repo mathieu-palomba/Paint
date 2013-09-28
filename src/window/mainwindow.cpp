@@ -19,11 +19,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 {
     ui->setupUi(this);
 
-    _myPainter = new MyPainter(this);
-    _myPainter->setContextMenuPolicy(Qt::CustomContextMenu);
-
     _initScreen();
-
     _createActions();
     _createMenus();
     _createToolbars();
@@ -40,9 +36,16 @@ MainWindow::~MainWindow()
 void MainWindow::_initScreen()
 {
 
+    // Set the window size
+    this->resize(QSize(WINDOW_WIDTH, WINDOW_HEIGHT));
+
     // Create central widget and vertical layout
     QWidget* wid = new QWidget();
     QVBoxLayout* mainLayout= new QVBoxLayout();
+
+    // Create a new painter
+    _myPainter = new MyPainter(this);
+    _myPainter->setContextMenuPolicy(Qt::CustomContextMenu);
 
     // Add painter into vertical layout
     mainLayout->addWidget(_myPainter);
@@ -53,7 +56,6 @@ void MainWindow::_initScreen()
     // Set central widget into the MainWindow
     this->setCentralWidget(wid);                                        // To fill out the window with the painter
     this->setWindowIcon(QIcon(PAINT_ICON_NAME_IN_QRC));                 // To set the window icon in the title bar
-    this->resize(QSize(WINDOW_WIDTH, WINDOW_HEIGHT));
 }
 
 void MainWindow::_createMenus()

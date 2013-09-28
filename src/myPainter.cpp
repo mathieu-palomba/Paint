@@ -4,7 +4,8 @@
 #include "shapes/shape.h"
 #include "factory/shapeFactory.h"
 
-MyPainter::MyPainter(MainWindow* mainWindow){
+MyPainter::MyPainter(MainWindow* mainWindow)
+{
     _mainWindow = mainWindow;
 
     _shapeToDraw.append(FREE_HAND);
@@ -15,13 +16,15 @@ MyPainter::MyPainter(MainWindow* mainWindow){
     _pen.setStyle(Qt::SolidLine);
 
     _buffer = QPixmap(_mainWindow->size());
-    _buffer.fill(_windowBackgroundColor);           // Couleur de fond de la fenêtre de dessin
+    _buffer.fill(_windowBackgroundColor);           // Window background color
 
     _buffer2 = QPixmap(_buffer.size());
-    _buffer2.fill(Qt::transparent);                 // Couleur de fond de la fenêtre de dessin
+    _buffer2.fill(Qt::transparent);                 // Window background color
 }
 
-MyPainter::~MyPainter(){}
+MyPainter::~MyPainter()
+{
+}
 
 void MyPainter::mousePressEvent(QMouseEvent* event)
 {
@@ -96,6 +99,7 @@ void MyPainter::mouseMoveEvent(QMouseEvent* event)
 
             // We draw the shape into the buffer
             _shape->draw( _buffer2 );
+            if(_shapeToDraw == FREE_HAND)    _shape->draw( _buffer );
             qDebug("Moved event");
         }
 
@@ -130,12 +134,12 @@ void MyPainter::paintEvent(QPaintEvent* event)
     qDebug("Paint window in paint event");
     QPainter paintWindow(this);
 
-    paintWindow.drawPixmap(0, 0, _buffer);     // Dessine la pixmap donnée à la position (x, y).
+    paintWindow.drawPixmap(0, 0, _buffer);          // Draw the pixmap at the position (x, y)
 
     if(_shape)
     {
         qDebug("Paint event");
-        paintWindow.drawPixmap(0, 0, _buffer2);     // Dessine la pixmap donnée à la position (x, y).
+        paintWindow.drawPixmap(0, 0, _buffer2);     // Draw the pixmap at the position (x, y)
         qDebug("Painted event");
     }
 }
@@ -178,10 +182,10 @@ void MyPainter::deleteShape()
 void MyPainter::eraseScreen()
 {
     _buffer = QPixmap(_mainWindow->size());
-    _buffer.fill(_windowBackgroundColor);           // Couleur de fond de la fenêtre de dessin
+    _buffer.fill(_windowBackgroundColor);           // Window background color
 
     _buffer2 = QPixmap(_buffer.size());
-    _buffer2.fill(Qt::transparent);                 // Couleur de fond de la fenêtre de dessin
+    _buffer2.fill(Qt::transparent);                 // Window background color
 
     if( _shape )
     {
@@ -216,7 +220,8 @@ void MyPainter::colorToApplyChange(QString colorMenuWhichGenerateEvent, QColor c
     }
 }
 
-void MyPainter::penStyleChange(QString newPenStyle){
+void MyPainter::penStyleChange(QString newPenStyle)
+{
     if(newPenStyle == SOLID_LINE_PEN_STYLE)             _pen.setStyle(Qt::SolidLine);
     else if(newPenStyle == DASH_LINE_PEN_STYLE)         _pen.setStyle(Qt::DashLine);
     else if(newPenStyle == DOT_LINE_PEN_STYLE)          _pen.setStyle(Qt::DotLine);
@@ -229,7 +234,8 @@ void MyPainter::sizeChange(int newSize)
     _pen.setWidth(newSize);
 }
 
-void MyPainter::resizeEvent(QResizeEvent* event){
+void MyPainter::resizeEvent(QResizeEvent* event)
+{
     /*qDebug("Resize %d %d", this->size().width(), this->size().height());
     // Peut etre utiliser save et restore?
 this->_buffer = this->_buffer.scaled(this->size().width(), this->size().height());//, Qt::KeepAspectRatio);
