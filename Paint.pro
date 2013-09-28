@@ -43,3 +43,5 @@ HEADERS  += headers/window/mainwindow.h \
 FORMS    += mainwindow.ui
 
 RESOURCES += Icones.qrc
+
+TRANSLATIONS = paint_fr.ts

@@ -12,6 +12,8 @@ FreeHand::~FreeHand()
 void FreeHand::draw(QPixmap& pixmap)
 {
     QPainter painter(&pixmap);
+
+    // Apply brush to the painter which draw shape
     painter.setBrush(_brush);
 
     // Apply pen to the painter which draw shape
@@ -26,10 +28,12 @@ void FreeHand::draw(QPixmap& pixmap)
 
 void FreeHand::mousePressEvent(QMouseEvent* event)
 {
+    // We get the mouse position
     _points.push_back(event->pos());
 }
 
 void FreeHand::mouseMoveEvent(QMouseEvent* event)
 {
+    // We update the mouse position
     _points.push_back(event->pos());
 }

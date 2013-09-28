@@ -17,15 +17,12 @@ Polygon::~Polygon()
 void Polygon::draw(QPixmap& pixmap)
 {
     QPainter painter(&pixmap);
+
+    // Apply brush to the painter which draw shape
     painter.setBrush(_brush);
 
     // Apply pen to the painter which draw shape
     painter.setPen(_pen);
-
-    for( int i = 0; i < _points.size(); ++i )
-    {
-        qDebug() << _points.at(i);
-    }
 
     if( ! _points.empty() )
     {
@@ -33,9 +30,6 @@ void Polygon::draw(QPixmap& pixmap)
         {
             painter.drawEllipse(_points.at(0), delatEnd, delatEnd);
         }
-
-        //else
-        //    _points.push_back( _points.at(0));
 
         QPolygon myPolygon( _points );
 
@@ -47,25 +41,33 @@ void Polygon::draw(QPixmap& pixmap)
 
 void Polygon::mousePressEvent(QMouseEvent* event)
 {
+    // If the user click for the first time, we get the first point
     if( _points.empty() )
     {
+        // We get the mouse position
         _movPoint = event->pos();
         _points.push_back( _movPoint );
 
         _drawed = false;
     }
 
+    // We check if the next click it's in the circle arround the first point
     else
     {
+        // We get the first point
         QPoint begin = _points.at(0);
+
+        // We calcul delta arround the first point
         double delta = sqrt( ( begin.x() - event->pos().x() ) * ( begin.x() - event->pos().x() ) +
                  ( begin.y() - event->pos().y() ) * ( begin.y() - event->pos().y() ) );
 
+        // If the user click outside the circle arround the first point, we save the new point
         if( delta > delatEnd )
         {
             _points.push_back( event->pos() );
         }
 
+        // We signal the shape it's drawed
         else
         {
             _drawed = true;
@@ -76,11 +78,12 @@ void Polygon::mousePressEvent(QMouseEvent* event)
 
 void Polygon::mouseMoveEvent( QMouseEvent* event )
 {
+    // We update the mouse position
     _movPoint = event->pos();
 }
 
 void Polygon::mouseReleaseEvent(QMouseEvent* event)
 {
-
+    // Do nothing here because the shape it's drawed when the user click in the circle arround the first point
 }
 

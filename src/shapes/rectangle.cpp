@@ -13,6 +13,8 @@ Rectangle::~Rectangle()
 void Rectangle::draw(QPixmap& pixmap)
 {
     QPainter painter(&pixmap);
+
+    // Apply brush to the painter which draw shape
     painter.setBrush(_brush);
 
     // Apply pen to the painter which draw shape

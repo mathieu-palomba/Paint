@@ -4,16 +4,21 @@
 #include "shapes/shape.h"
 #include "factory/shapeFactory.h"
 
+const QString MyPainter::PEN_COLOR = "black";
+const Qt::PenStyle MyPainter::PEN_STYLE = Qt::SolidLine;
+const QString MyPainter::PEN_FILL_OUT_COLOR = "white";
+const QString MyPainter::WINDOW_BACKGROUND_COLOR = "white";
+
 MyPainter::MyPainter(MainWindow* mainWindow)
 {
     _mainWindow = mainWindow;
 
-    _shapeToDraw.append(FREE_HAND);
+    _shapeToDraw.append(tr("Free hand"));
 
-    _windowBackgroundColor = WINDOW_BACKGROUND_COLOR;
+    _windowBackgroundColor = QColor(WINDOW_BACKGROUND_COLOR);
     _pen.setColor(QColor(PEN_COLOR));
     _brush.setColor(QColor(PEN_FILL_OUT_COLOR));
-    _pen.setStyle(Qt::SolidLine);
+    _pen.setStyle(PEN_STYLE);
 
     _buffer = QPixmap(_mainWindow->size());
     _buffer.fill(_windowBackgroundColor);           // Window background color
@@ -42,25 +47,25 @@ void MyPainter::mousePressEvent(QMouseEvent* event)
         if ( !_shape )
         {
             // Create the shape to draw
-            if(_shapeToDraw == LINE_SHAPE){
+            if(_shapeToDraw == tr("&Line")){
                 _shape = ShapeFactory::createShape(ShapeFactory::line, _pen, _brush);
             }
-            else if(_shapeToDraw == RECTANGLE_SHAPE){
+            else if(_shapeToDraw == tr("Rectangle")){
                 _shape = ShapeFactory::createShape(ShapeFactory::rectangle, _pen, _brush);
             }
-            else if(_shapeToDraw == CIRCLE_SHAPE){
+            else if(_shapeToDraw == tr("Circle")){
                 _shape = ShapeFactory::createShape(ShapeFactory::circle, _pen, _brush);
             }
-            else if(_shapeToDraw == POLYGON_SHAPE){
+            else if(_shapeToDraw == tr("Polygon")){
                 _shape = ShapeFactory::createShape(ShapeFactory::polygon, _pen, _brush);
             }
-            else if(_shapeToDraw == TEXT_SHAPE){
+            else if(_shapeToDraw == tr("Text")){
                 _shape = ShapeFactory::createShape(ShapeFactory::text, _pen, _brush);
             }
-            else if(_shapeToDraw == FREE_HAND){
+            else if(_shapeToDraw == tr("Free hand")){
                 _shape = ShapeFactory::createShape(ShapeFactory::freeHand, _pen, _brush);
             }
-            else if(_shapeToDraw == RUBBER_SHAPE){
+            else if(_shapeToDraw == tr("Rubber")){
                 _shape = ShapeFactory::createShape(ShapeFactory::rubber, _pen, _brush);
             }
 
@@ -101,7 +106,7 @@ void MyPainter::mouseMoveEvent(QMouseEvent* event)
             _shape->mouseMoveEvent( event );
 
             // We draw the shape into the buffer
-            if(_shapeToDraw == RUBBER_SHAPE)    _shape->draw( _buffer );
+            if(_shapeToDraw == tr("Rubber"))    _shape->draw( _buffer );
             else                                _shape->draw( _buffer2 );
 
             qDebug("Moved event");
@@ -214,12 +219,12 @@ void MyPainter::shapeToDrawChange(QString newShapeToDraw)
 void MyPainter::colorToApplyChange(QString colorMenuWhichGenerateEvent, QColor color)
 {
     // Shape color
-    if(colorMenuWhichGenerateEvent == CHOOSE_SHAPE_COLOR_MENU_NAME){
+    if(colorMenuWhichGenerateEvent == tr("Changed shape color")){
         _pen.setColor(color);
     }
 
     // Fill out color
-    else if(colorMenuWhichGenerateEvent == CHOOSE_FILL_COLOR_MENU_NAME)
+    else if(colorMenuWhichGenerateEvent == tr("Changed fill Color"))
     {
         _brush.setColor(color);
     }
@@ -227,11 +232,11 @@ void MyPainter::colorToApplyChange(QString colorMenuWhichGenerateEvent, QColor c
 
 void MyPainter::penStyleChange(QString newPenStyle)
 {
-    if(newPenStyle == SOLID_LINE_PEN_STYLE)             _pen.setStyle(Qt::SolidLine);
-    else if(newPenStyle == DASH_LINE_PEN_STYLE)         _pen.setStyle(Qt::DashLine);
-    else if(newPenStyle == DOT_LINE_PEN_STYLE)          _pen.setStyle(Qt::DotLine);
-    else if(newPenStyle == DASH_DOT_LINE_PEN_STYLE)     _pen.setStyle(Qt::DashDotLine);
-    else if(newPenStyle == DASH_DOT_DOT_LINE_PEN_STYLE) _pen.setStyle(Qt::DashDotDotLine);
+    if(newPenStyle == tr("Solid line"))             _pen.setStyle(Qt::SolidLine);
+    else if(newPenStyle == tr("Dash line"))         _pen.setStyle(Qt::DashLine);
+    else if(newPenStyle == tr("Dot line"))          _pen.setStyle(Qt::DotLine);
+    else if(newPenStyle == tr("Dash dot line"))     _pen.setStyle(Qt::DashDotLine);
+    else if(newPenStyle == tr("Dash dot dot line")) _pen.setStyle(Qt::DashDotDotLine);
 }
 
 void MyPainter::sizeChange(int newSize)
@@ -250,9 +255,4 @@ this->_buffer2 = this->_buffer2.scaled(this->size().width(), this->size().height
 QPixmap& MyPainter::getBuffer()
 {
     return this->_buffer;
-}
-
-QPixmap& MyPainter::getBuffer2()
-{
-    return this->_buffer2;
 }

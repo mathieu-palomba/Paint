@@ -54,8 +54,8 @@ void MainWindow::_initScreen()
     wid->setLayout(mainLayout);
 
     // Set central widget into the MainWindow
-    this->setCentralWidget(wid);                                        // To fill out the window with the painter
-    this->setWindowIcon(QIcon(PAINT_ICON_NAME_IN_QRC));                 // To set the window icon in the title bar
+    this->setCentralWidget(wid);                                // To fill out the window with the painter
+    this->setWindowIcon(QIcon(":/paint_icon"));                 // To set the window icon in the title bar
 }
 
 void MainWindow::_createMenus()
@@ -135,65 +135,6 @@ void MainWindow::_createDockWidget()
 
 void MainWindow::_createActions()
 {
-    // Style menu --> Shape sub menu
-    QString drawFreeHandAction;
-    drawFreeHandAction.append("&");
-    drawFreeHandAction.append(FREE_HAND);
-
-    QString drawLineAction;
-    drawLineAction.append("&");
-    drawLineAction.append(LINE_SHAPE);
-
-    QString drawRectangleAction;
-    drawRectangleAction.append("&");
-    drawRectangleAction.append(RECTANGLE_SHAPE);
-
-    QString drawCircleAction;
-    drawCircleAction.append("&");
-    drawCircleAction.append(CIRCLE_SHAPE);
-
-    QString drawPolygonAction;
-    drawPolygonAction.append("&");
-    drawPolygonAction.append(POLYGON_SHAPE);
-
-    QString drawTextAction;
-    drawTextAction.append("&");
-    drawTextAction.append(TEXT_SHAPE);
-
-    QString rubberAction;
-    rubberAction.append("&");
-    rubberAction.append(RUBBER_SHAPE);
-
-    // Style menu --> Color sub menu
-    QString chooseShapeColorAction;
-    chooseShapeColorAction.append("&");
-    chooseShapeColorAction.append(CHOOSE_SHAPE_COLOR_MENU_NAME);
-
-    QString chooseFillColorAction;
-    chooseFillColorAction.append("&");
-    chooseFillColorAction.append(CHOOSE_FILL_COLOR_MENU_NAME);
-
-    // Style menu --> Pen style sub menu
-    QString solidLineAction;
-    solidLineAction.append("&");
-    solidLineAction.append(SOLID_LINE_PEN_STYLE);
-
-    QString dashLineAction;
-    dashLineAction.append("&");
-    dashLineAction.append(DASH_LINE_PEN_STYLE);
-
-    QString dotLineAction;
-    dotLineAction.append("&");
-    dotLineAction.append(DOT_LINE_PEN_STYLE);
-
-    QString dashDotLineAction;
-    dashDotLineAction.append("&");
-    dashDotLineAction.append(DASH_DOT_LINE_PEN_STYLE);
-
-    QString dashDotDotLineAction;
-    dashDotDotLineAction.append("&");
-    dashDotDotLineAction.append(DASH_DOT_DOT_LINE_PEN_STYLE);
-
     // Create action for File menu
     _newAction = new QAction(QIcon(":/new_icon"), tr("&New"), this);
     _newAction->setShortcut(QKeySequence(QKeySequence::New));
@@ -202,67 +143,71 @@ void MainWindow::_createActions()
     _openAction->setShortcut(QKeySequence(QKeySequence::Open));
 
     _saveAction = new QAction(QIcon(":/save_icon"), tr("&Save"), this);
-    _saveAction->setShortcut(QKeySequence(QKeySequence::Save));                  // Define the SAVE_SHORTCUT as shortcut for the "Save QAction"
+    _saveAction->setShortcut(QKeySequence(QKeySequence::Save));                         // Define the SAVE_SHORTCUT as shortcut for the "Save QAction"
 
     _quitAction = new QAction(QIcon(":/exit_icon"), tr("&Quit"), this);
-    _quitAction->setShortcut(QKeySequence(QKeySequence(QUIT_SHORTCUT.c_str())));                  // Define the EXIT_SHORTCUT as shortcut for the "Exit QAction"
+    _quitAction->setShortcut(QKeySequence(QKeySequence(QUIT_SHORTCUT.c_str())));        // Define the EXIT_SHORTCUT as shortcut for the "Exit QAction"
+
 
     // Create action for File menu --> Shape sub menu
-    _drawFreeHandAction = new QAction(QIcon(":/free_hand_icon"), drawFreeHandAction, this);
-    _drawFreeHandAction->setData(FREE_HAND);                                 // setData to identify what QAction generating an event
+    _drawFreeHandAction = new QAction(QIcon(":/free_hand_icon"), tr("&Free hand"), this);
+    _drawFreeHandAction->setData(tr("Free hand"));                           // setData to identify what QAction generating an event
     _drawFreeHandAction->setCheckable(true);
 
-    _drawLineAction = new QAction(QIcon(":/line_icon"), drawLineAction, this);
-    _drawLineAction->setData(LINE_SHAPE);                                   // setData to identify what QAction generating an event
+    _drawLineAction = new QAction(QIcon(":/line_icon"), tr("&Line"), this);
+    _drawLineAction->setData(tr("&Line"));                                   // setData to identify what QAction generating an event
     _drawLineAction->setCheckable(true);
 
-    _drawRectangleAction = new QAction(QIcon(":/rectangle_icon"), drawRectangleAction, this);
-    _drawRectangleAction->setData(RECTANGLE_SHAPE);                         // setData to identify what QAction generating an event
+    _drawRectangleAction = new QAction(QIcon(":/rectangle_icon"), tr("&Rectangle"), this);
+    _drawRectangleAction->setData(tr("Rectangle"));                         // setData to identify what QAction generating an event
     _drawRectangleAction->setCheckable(true);
 
-    _drawCircleAction = new QAction(QIcon(":/circle_icon"), drawCircleAction, this);
-    _drawCircleAction->setData(CIRCLE_SHAPE);                               // setData to identify what QAction generating an event
+    _drawCircleAction = new QAction(QIcon(":/circle_icon"), tr("&Circle"), this);
+    _drawCircleAction->setData(tr("Circle"));                               // setData to identify what QAction generating an event
     _drawCircleAction->setCheckable(true);
 
-    _drawPolygonAction = new QAction(QIcon(":/polygon_icon"), drawPolygonAction, this);
-    _drawPolygonAction->setData(POLYGON_SHAPE);                             // setData to identify what QAction generating an event
+    _drawPolygonAction = new QAction(QIcon(":/polygon_icon"), tr("&Polygon"), this);
+    _drawPolygonAction->setData(tr("Polygon"));                             // setData to identify what QAction generating an event
     _drawPolygonAction->setCheckable(true);
 
-    _drawTextAction = new QAction(QIcon(":/text_icon"), drawTextAction, this);
-    _drawTextAction->setData(TEXT_SHAPE);                                   // setData to identify what QAction generating an event
+    _drawTextAction = new QAction(QIcon(":/text_icon"), tr("&Text"), this);
+    _drawTextAction->setData(tr("Text"));                                   // setData to identify what QAction generating an event
     _drawTextAction->setCheckable(true);
 
-    _rubberAction = new QAction(QIcon(":/rubber_icon"), rubberAction, this);
-    _rubberAction->setData(RUBBER_SHAPE);
+    _rubberAction = new QAction(QIcon(":/rubber_icon"), tr("&Rubber"), this);
+    _rubberAction->setData(tr("Rubber"));
     _rubberAction->setCheckable(true);
 
-    // Create action for File menu --> Color sub menu
-    _chooseShapeColorAction = new QAction(QIcon(":/pen_color_icon"), chooseShapeColorAction, this);
-    _chooseShapeColorAction->setData(CHOOSE_SHAPE_COLOR_MENU_NAME);                 // setData to identify what QAction generating an event
 
-    _chooseFillColorAction = new QAction(QIcon(":/fill_out_color_icon"), chooseFillColorAction, this);
-    _chooseFillColorAction->setData(CHOOSE_FILL_COLOR_MENU_NAME);                  // setData to identify what QAction generating an event
+    // Create action for File menu --> Color sub menu
+    _chooseShapeColorAction = new QAction(QIcon(":/pen_color_icon"), tr("&Changed shape color"), this);
+    _chooseShapeColorAction->setData(tr("Changed shape color"));            // setData to identify what QAction generating an event
+
+    _chooseFillColorAction = new QAction(QIcon(":/fill_out_color_icon"), tr("&Changed fill Color"), this);
+    _chooseFillColorAction->setData(tr("Changed fill Color"));              // setData to identify what QAction generating an event
+
 
     // Create action for File menu --> Pen style sub menu
-    _solidLineAction = new QAction(QIcon(":/solid_line_icon"), solidLineAction, this);
-    _solidLineAction->setData(SOLID_LINE_PEN_STYLE);                 // setData to identify what QAction generating an event
+    _solidLineAction = new QAction(QIcon(":/solid_line_icon"), tr("&Solid line"), this);
+    _solidLineAction->setData(tr("Solid line"));                            // setData to identify what QAction generating an event
     _solidLineAction->setCheckable(true);
 
-    _dashLineAction = new QAction(QIcon(":/dash_line_icon"), dashLineAction, this);
-    _dashLineAction->setData(DASH_LINE_PEN_STYLE);                 // setData to identify what QAction generating an event
+    _dashLineAction = new QAction(QIcon(":/dash_line_icon"), tr("&Dash line"), this);
+    _dashLineAction->setData(tr("Dash line"));                              // setData to identify what QAction generating an event
     _dashLineAction->setCheckable(true);
 
-    _dotLineAction = new QAction(QIcon(":/dot_line_icon"), dotLineAction, this);
-    _dotLineAction->setData(DOT_LINE_PEN_STYLE);                 // setData to identify what QAction generating an event
+    _dotLineAction = new QAction(QIcon(":/dot_line_icon"), tr("&Dot line"), this);
+    _dotLineAction->setData(tr("Dot line"));                                // setData to identify what QAction generating an event
     _dotLineAction->setCheckable(true);
 
-    _dashDotLineAction = new QAction(QIcon(":/dash_dot_line_icon"), dashDotLineAction, this);
-    _dashDotLineAction->setData(DASH_DOT_LINE_PEN_STYLE);                 // setData to identify what QAction generating an event
+    _dashDotLineAction = new QAction(QIcon(":/dash_dot_line_icon"), tr("&Dash dot line"), this);
+    _dashDotLineAction->setData(tr("Dash dot line"));                       // setData to identify what QAction generating an event
     _dashDotLineAction->setCheckable(true);
 
-    _dashDotDotLineAction = new QAction(QIcon(":/dash_dot_dot_line_icon"), dashDotDotLineAction, this);
-    _dashDotDotLineAction->setData(DASH_DOT_DOT_LINE_PEN_STYLE);                 // setData to identify what QAction generating an event
+    _dashDotDotLineAction = new QAction(QIcon(":/dash_dot_dot_line_icon"), tr("&Dash dot dot line"), this);
+    _dashDotDotLineAction->setData(tr("Dash dot dot line"));                // setData to identify what QAction generating an event
     _dashDotDotLineAction->setCheckable(true);
+
 
     // Create action for Help menu
     _aboutAction = new QAction(QIcon(":/about"), tr("&About"), this);
@@ -279,6 +224,7 @@ void MainWindow::_createActions()
     _shapeActionGroup->addAction(_drawTextAction);
     _shapeActionGroup->addAction(_rubberAction);
     _drawFreeHandAction->setChecked(true);
+
 
     // Create action group for radiobox into the Style menu --> Pen style sub menu
     _penStyleActionGroup = new QActionGroup(this);
@@ -357,14 +303,14 @@ void MainWindow::drawShapeAction(QAction* action)
 void MainWindow::chooseColorAction(QAction* action)
 {
    QColorDialog* colorChooser = new QColorDialog();
+
    colorChooser->setWindowIcon(QIcon(":/change_color_icon"));
-   QColor color = QColorDialog::getColor(Qt::white, colorChooser, CHOOSE_COLOR_DIALOG_NAME, QColorDialog::DontUseNativeDialog);
+
+   QColor color = QColorDialog::getColor(Qt::white, colorChooser, tr("Choose a new color"), QColorDialog::DontUseNativeDialog);
 
    if(color.isValid())
    {
         QString submenuGenerateEvent = action->data().toString();
-        //QString textColorName = color.name();
-        //QMessageBox::information(this, "Text Color", "You selected " + textColorName);
 
         _myPainter->colorToApplyChange(submenuGenerateEvent, color);
    }

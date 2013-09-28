@@ -13,14 +13,19 @@ class Shape;
 
 class MyPainter : public QWidget
 {
-        Q_OBJECT
+    Q_OBJECT
+
+    static const QString PEN_COLOR;
+    static const Qt::PenStyle PEN_STYLE;
+    static const QString PEN_FILL_OUT_COLOR;
+    static const QString WINDOW_BACKGROUND_COLOR;
+
 public:
     MyPainter(MainWindow* mainWindow);
     ~MyPainter();
 
     void resizeEvent(QResizeEvent* event);
     QPixmap& getBuffer();
-    QPixmap& getBuffer2();
 
 protected:
     void mousePressEvent(QMouseEvent* event);
