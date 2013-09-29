@@ -27,8 +27,12 @@ int main(int argc, char *argv[])
     rectItem->setPen(pen);              // Apply outline color
     rectItem->setBrush(brush);          // Apply fill out color
 
+    //qDebug() << scene.items();        // Display all of the shape into the scene
+
     QGraphicsView view(&scene);
     view.show();
+
+    //QPixmap pixMap = QPixmap::grabWidget(view);   // Create a pixmap to load and save picture (png, jpg...)
 
     return a.exec();
 }
