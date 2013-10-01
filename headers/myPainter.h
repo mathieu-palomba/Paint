@@ -16,6 +16,7 @@ class MyPainter : public QWidget
 
     static const QString PEN_COLOR;
     static const Qt::PenStyle PEN_STYLE;
+    static const Qt::BrushStyle BRUSH_STYLE;
     static const QString PEN_FILL_OUT_COLOR;
     static const QString WINDOW_BACKGROUND_COLOR;
 
@@ -39,6 +40,7 @@ private:
 
     QPen _pen;
     QBrush _brush;
+    Qt::BrushStyle _brushStyle;
     QColor _windowBackgroundColor;
     QString _shapeToDraw;
 
@@ -51,6 +53,7 @@ public slots:
     void shapeToDrawChange(QString newShapeToDraw);
     void colorToApplyChange(QString colorMenuWhichGenerateEvent, QColor color);
     void penStyleChange(QString newPenStyle);
+    void brushStyleChange(Qt::BrushStyle newBrushStyle);
     void sizeChange(int newSize);
 
 protected slots:

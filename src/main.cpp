@@ -3,15 +3,15 @@
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
 #include <QGraphicsView>
+#include <QDebug>
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
 
-    QGraphicsScene scene;
-    //scene.setForegroundBrush(QBrush(Qt::blue));
-    //scene.setBackgroundBrush(QBrush(Qt::red));
+    /*QGraphicsScene scene;
 
     QGraphicsRectItem* rectItem = scene.addRect(QRectF(0,0,100,100));
     rectItem->setFlag(QGraphicsItem::ItemIsMovable);    // To accept movable shape
@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
     QGraphicsView view(&scene);
     view.show();
 
-    //QPixmap pixMap = QPixmap::grabWidget(view);   // Create a pixmap to load and save picture (png, jpg...)
+    //QPixmap pixMap = QPixmap::grabWidget(view);   // Create a pixmap to load and save picture (png, jpg...)*/
 
     return a.exec();
 }

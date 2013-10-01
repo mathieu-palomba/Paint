@@ -11,7 +11,6 @@ Polygon::Polygon(QPen& pen, QBrush& brush) :
 
 Polygon::~Polygon()
 {
-    qDebug() << "polygon destroyed";
 }
 
 void Polygon::draw(QPixmap& pixmap)

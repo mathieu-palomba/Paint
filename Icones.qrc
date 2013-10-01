@@ -18,13 +18,24 @@
 		<file alias="dash_line_icon">images/dash_line_icon.png</file>
 		<file alias="dash_dot_line_icon">images/dash_dot_line_icon.png</file>
 		<file alias="dash_dot_dot_line_icon">images/dash_dot_dot_line_icon.png</file>
+		<file alias="brush_icon">images/brush_icon.png</file>
+		<file alias="solid_pattern_icon">images/solid_pattern_icon.png</file>
+		<file alias="horizontal_pattern_icon">images/horizontal_pattern_icon.png</file>
+		<file alias="vertical_pattern_icon">images/vertical_pattern_icon.png</file>
+		<file alias="cross_pattern_icon">images/cross_pattern_icon.png</file>
+		<file alias="b_diag_pattern_icon">images/b_diag_pattern_icon.png</file>
+		<file alias="f_diag_pattern_icon">images/f_diag_pattern_icon.png</file>
+		<file alias="diag_cross_pattern_icon">images/diag_cross_pattern_icon.png</file>
 		<file alias="change_shape_icon">images/change_shape_icon.png</file>
 		<file alias="change_color_icon">images/change_color_icon.png</file>
 		<file alias="pen_color_icon">images/pen_color_icon.png</file>
 		<file alias="fill_out_color_icon">images/fill_out_color_icon.png</file>
 		<file alias="pen_style_icon">images/pen_style_icon.png</file>
 		<file alias="about">images/about_icon.png</file>
+		<file alias="about_Qt_icon">images/about_Qt_icon.png</file>
 		<file alias="enib_logo">images/enib_logo.jpg</file>
+		<file alias="documentation_icon">images/documentation_icon.png</file>
+		<file alias="erase_icon">images/erase_icon.png</file>
 
 	</qresource>
 </RCC>

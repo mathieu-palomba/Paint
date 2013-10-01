@@ -10,6 +10,7 @@
 
 const int MainWindow::WINDOW_WIDTH = 800;
 const int MainWindow::WINDOW_HEIGHT = 800;
+const string MainWindow::SAVE_AS_SHORTCUT = "ctrl+shift+s";
 const string MainWindow::QUIT_SHORTCUT = "ctrl+q";
 const string MainWindow::ABOUT_SHORTCUT = "ctrl+a";
 const int MainWindow::MAX_SIZE = 10;
@@ -74,6 +75,9 @@ void MainWindow::_createMenus()
     // Add Pen style sub menu menu into the Style menu
     _penStyleMenu = _styleMenu->addMenu(QIcon(":/pen_style_icon"), tr("&Pen style"));
 
+    // Add Brush style sub menu menu into the Style menu
+    _brushStyleMenu = _styleMenu->addMenu(QIcon(":/brush_icon"), tr("&Brush style"));
+
     // Add separator into the Style menu
     _styleMenu->addSeparator();
 
@@ -115,6 +119,11 @@ void MainWindow::_createDockWidget()
     _toolBar->addAction(_dashDotLineAction);
     _toolBar->addAction(_dashDotDotLineAction);
 
+    _toolBar->addWidget(new QLabel(tr("<b>Brush styles</b>")));
+    _toolBar->addAction(_solidPatternAction);
+    _toolBar->addAction(_horizontalPatternAction);
+    _toolBar->addAction(_verticalPatternAction);
+
     _toolBar->addWidget(new QLabel(tr("<b>Colors</b>")));
     _toolBar->addSeparator();
     _toolBar->addAction(_chooseShapeColorAction);
@@ -142,13 +151,16 @@ void MainWindow::_createActions()
     _openAction->setShortcut(QKeySequence(QKeySequence::Open));
 
     _saveAction = new QAction(QIcon(":/save_icon"), tr("&Save"), this);
-    _saveAction->setShortcut(QKeySequence(QKeySequence::Save));                         // Define the SAVE_SHORTCUT as shortcut for the "Save QAction"
+    _saveAction->setShortcut(QKeySequence(QKeySequence::Save));              // Define the SAVE_AS_SHORTCUT as shortcut for the "Save QAction"
+
+    _saveAsAction = new QAction(QIcon(":/save_icon"), tr("&Save as"), this);
+    _saveAsAction->setShortcut(QKeySequence(SAVE_AS_SHORTCUT.c_str()));      // Define the SAVE_AS_SHORTCUT as shortcut for the "Save As QAction"
 
     _quitAction = new QAction(QIcon(":/exit_icon"), tr("&Quit"), this);
-    _quitAction->setShortcut(QKeySequence(QKeySequence(QUIT_SHORTCUT.c_str())));        // Define the EXIT_SHORTCUT as shortcut for the "Exit QAction"
+    _quitAction->setShortcut(QKeySequence(QUIT_SHORTCUT.c_str()));           // Define the EXIT_SHORTCUT as shortcut for the "Exit QAction"
 
 
-    // Create action for File menu --> Shape sub menu
+    // Create action for Style menu --> Shape sub menu
     _drawFreeHandAction = new QAction(QIcon(":/free_hand_icon"), tr("&Free hand"), this);
     _drawFreeHandAction->setData(tr("Free hand"));                           // setData to identify what QAction generating an event
     _drawFreeHandAction->setCheckable(true);
@@ -178,7 +190,7 @@ void MainWindow::_createActions()
     _rubberAction->setCheckable(true);
 
 
-    // Create action for File menu --> Color sub menu
+    // Create action for Style menu --> Color sub menu
     _chooseShapeColorAction = new QAction(QIcon(":/pen_color_icon"), tr("&Changed shape color"), this);
     _chooseShapeColorAction->setData(tr("Changed shape color"));            // setData to identify what QAction generating an event
 
@@ -186,7 +198,7 @@ void MainWindow::_createActions()
     _chooseFillColorAction->setData(tr("Changed fill Color"));              // setData to identify what QAction generating an event
 
 
-    // Create action for File menu --> Pen style sub menu
+    // Create action for Style menu --> Pen style sub menu
     _solidLineAction = new QAction(QIcon(":/solid_line_icon"), tr("&Solid line"), this);
     _solidLineAction->setData(tr("Solid line"));                            // setData to identify what QAction generating an event
     _solidLineAction->setCheckable(true);
@@ -207,11 +219,42 @@ void MainWindow::_createActions()
     _dashDotDotLineAction->setData(tr("Dash dot dot line"));                // setData to identify what QAction generating an event
     _dashDotDotLineAction->setCheckable(true);
 
+    // Create action for Style menu --> Brush style sub menu
+    _solidPatternAction = new QAction(QIcon(":/solid_pattern_icon"), tr("&Solid pattern"), this);
+    _solidPatternAction->setData(Qt::SolidPattern);                            // setData to identify what QAction generating an event
+    _solidPatternAction->setCheckable(true);
+
+    _horizontalPatternAction = new QAction(QIcon(":/horizontal_pattern_icon"), tr("&Horizontal pattern"), this);
+    _horizontalPatternAction->setData(Qt::HorPattern);                            // setData to identify what QAction generating an event
+    _horizontalPatternAction->setCheckable(true);
+
+    _verticalPatternAction = new QAction(QIcon(":/vertical_pattern_icon"), tr("&Vertical pattern"), this);
+    _verticalPatternAction->setData(Qt::VerPattern);                            // setData to identify what QAction generating an event
+    _verticalPatternAction->setCheckable(true);
+
+    _crossPatternAction = new QAction(QIcon(":/cross_pattern_icon"), tr("&Cross pattern"), this);
+    _crossPatternAction->setData(Qt::CrossPattern);                            // setData to identify what QAction generating an event
+    _crossPatternAction->setCheckable(true);
+
+    _bDiagPatternAction = new QAction(QIcon(":/b_diag_pattern_icon"), tr("&B Diagonal pattern"), this);
+    _bDiagPatternAction->setData(Qt::BDiagPattern);                            // setData to identify what QAction generating an event
+    _bDiagPatternAction->setCheckable(true);
+
+    _fDiagPatternAction = new QAction(QIcon(":/f_diag_pattern_icon"), tr("&F Diagonal pattern"), this);
+    _fDiagPatternAction->setData(Qt::FDiagPattern);                            // setData to identify what QAction generating an event
+    _fDiagPatternAction->setCheckable(true);
+
+    _diagCrossPatternAction = new QAction(QIcon(":/diag_cross_pattern_icon"), tr("&Diagonal cross pattern"), this);
+    _diagCrossPatternAction->setData(Qt::DiagCrossPattern);                            // setData to identify what QAction generating an event
+    _diagCrossPatternAction->setCheckable(true);
 
     // Create action for Help menu
     _aboutAction = new QAction(QIcon(":/about"), tr("&About"), this);
     _aboutAction->setShortcut(QKeySequence(ABOUT_SHORTCUT.c_str()));                // Define the ABOUT_SHORTCUT as shortcut for the "About QAction"
 
+    _aboutQtAction = new QAction(QIcon(":/about_Qt_icon"), tr("About &Qt"), this);
+
+    _helpAction = new QAction(QIcon(":/documentation_icon"), tr("&Help"), this);
 
     // Create action group for radiobox into the Style menu --> Shape sub menu
     _shapeActionGroup = new QActionGroup(this);
@@ -234,6 +277,19 @@ void MainWindow::_createActions()
     _penStyleActionGroup->addAction(_dashDotDotLineAction);
     _solidLineAction->setChecked(true);
 
+    // Create action group for radiobox into the Style menu --> Brush style sub menu
+    _brushStyleActionGroup = new QActionGroup(this);
+    _brushStyleActionGroup->addAction(_solidPatternAction);
+    _brushStyleActionGroup->addAction(_horizontalPatternAction);
+    _brushStyleActionGroup->addAction(_verticalPatternAction);
+    _brushStyleActionGroup->addAction(_crossPatternAction);
+    _brushStyleActionGroup->addAction(_bDiagPatternAction);
+    _brushStyleActionGroup->addAction(_fDiagPatternAction);
+    _brushStyleActionGroup->addAction(_diagCrossPatternAction);
+    _solidPatternAction->setChecked(true);
+
+    // Create action for context menu
+    _eraseAction = new QAction(QIcon(":/erase_icon"), tr("&Erase"), this);
 }
 
 void MainWindow::_connectActions()
@@ -242,6 +298,7 @@ void MainWindow::_connectActions()
     _fileMenu->addAction(_newAction);
     _fileMenu->addAction(_openAction);
     _fileMenu->addAction(_saveAction);
+    _fileMenu->addAction(_saveAsAction);
     _fileMenu->addSeparator();
     _fileMenu->addAction(_quitAction);
 
@@ -261,12 +318,23 @@ void MainWindow::_connectActions()
     _penStyleMenu->addAction(_dashDotLineAction);
     _penStyleMenu->addAction(_dashDotDotLineAction);
 
+    // Connect Brush style actions with her menu
+    _brushStyleMenu->addAction(_solidPatternAction);
+    _brushStyleMenu->addAction(_horizontalPatternAction);
+    _brushStyleMenu->addAction(_verticalPatternAction);
+    _brushStyleMenu->addAction(_crossPatternAction);
+    _brushStyleMenu->addAction(_bDiagPatternAction);
+    _brushStyleMenu->addAction(_fDiagPatternAction);
+    _brushStyleMenu->addAction(_diagCrossPatternAction);
+
     // Connect Color actions with her menu
     _colorMenu->addAction(_chooseShapeColorAction);
     _colorMenu->addAction(_chooseFillColorAction);
 
     // Connect About actions with her menu
     _helpMenu->addAction(_aboutAction);
+    _helpMenu->addAction(_aboutQtAction);
+    _helpMenu->addAction(_helpAction);
 }
 
 void MainWindow::_connectSignals()
@@ -275,21 +343,26 @@ void MainWindow::_connectSignals()
     connect(_newAction, SIGNAL(triggered()), this, SLOT(newAction()));
     connect(_openAction, SIGNAL(triggered()), this, SLOT(openAction()));
     connect(_saveAction, SIGNAL(triggered()), this, SLOT(saveAction()));
+    connect(_saveAsAction, SIGNAL(triggered()), this, SLOT(saveAsAction()));
     connect(_quitAction, SIGNAL(triggered()), this, SLOT(exitAction()));
 
     // Link signals in relation with Style menu with slots
     connect(_shapeMenu, SIGNAL(triggered(QAction*)), this, SLOT(drawShapeAction(QAction*)));
     connect(_colorMenu, SIGNAL(triggered(QAction*)), this, SLOT(chooseColorAction(QAction*)));
     connect(_penStyleMenu, SIGNAL(triggered(QAction*)), this, SLOT(changePenStyleAction(QAction*)));
+    connect(_brushStyleMenu, SIGNAL(triggered(QAction*)), this, SLOT(changeBrushStyleAction(QAction*)));
 
     // Link signals in relation with Help menu with slots
     connect(_aboutAction, SIGNAL(triggered()), this, SLOT(aboutAction()));
+    connect(_aboutQtAction, SIGNAL(triggered()), this, SLOT(aboutQtAction()));
+    connect(_helpAction, SIGNAL(triggered()), this, SLOT(helpAction()));
 
     // Link signal to change the shape size
     connect(_sizeWidget, SIGNAL(valueChanged(int)), _myPainter, SLOT(sizeChange(int)));
 
     // To allow right clic on the painter
     connect(_myPainter, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(showContextMenu(const QPoint&)));
+    connect(_eraseAction, SIGNAL(triggered()), _myPainter, SLOT(eraseScreen()));
 }
 
 void MainWindow::drawShapeAction(QAction* action)
@@ -315,11 +388,18 @@ void MainWindow::chooseColorAction(QAction* action)
    }
 }
 
-void MainWindow::changePenStyleAction(QAction *action)
+void MainWindow::changePenStyleAction(QAction* action)
 {
     QString newPenStyle = action->data().toString();
 
     _myPainter->penStyleChange(newPenStyle);
+}
+
+void MainWindow::changeBrushStyleAction(QAction* action)
+{
+    int newBrushStyle = action->data().toInt();
+
+    _myPainter->brushStyleChange((Qt::BrushStyle)newBrushStyle);
 }
 
 void MainWindow::newAction()
@@ -327,11 +407,7 @@ void MainWindow::newAction()
     bool response = askUser(tr("New drawing"), tr("Are you sure to create a new drawing?"));
 
     if (response){
-        qDebug("Yes was clicked");
         _myPainter->eraseScreen();
-    }
-    else{
-        qDebug("Cancel was clicked");
     }
 }
 
@@ -345,10 +421,29 @@ void MainWindow::openAction()
 
         _myPainter->eraseScreen();
         _myPainter->getBuffer().load(filename, filesName.at(1).toStdString().c_str());
+
+        // We save the current path
+        _filePath = filename;
     }
 }
 
 void MainWindow::saveAction()
+{
+    // If the file isn't save, we call the save as method
+    if(_filePath.isEmpty())
+    {
+        saveAsAction();
+    }
+
+    // We save the picture
+    else
+    {
+        QStringList filesName = _filePath.split(".");
+        _myPainter->getBuffer().save(_filePath, filesName.at(1).toStdString().c_str());
+    }
+}
+
+void MainWindow::saveAsAction()
 {
     QString filename = QFileDialog::getSaveFileName(this, tr("Save as"), QDir::currentPath(), tr("PNG (*.png);;JPEG (*.jpg);;BMP (*.bmp)") );
 
@@ -356,7 +451,9 @@ void MainWindow::saveAction()
     {
         QStringList filesName = filename.split(".");
         _myPainter->getBuffer().save(filename, filesName.at(1).toStdString().c_str());
-        qDebug("%s", filename.toStdString().c_str());
+
+        // We save the current path
+        _filePath = filename;
     }
 }
 
@@ -370,11 +467,9 @@ void MainWindow::exitAction(QCloseEvent* event)
     bool response = askUser(tr("Paint"), tr("Do you really want to exit?"));
 
     if (response){
-        qDebug("Yes was clicked");
         QApplication::quit();
     }
     else{
-        qDebug("Cancel was clicked");
         if( event)
         {
             event->ignore();
@@ -396,11 +491,26 @@ bool MainWindow::askUser(QString title, QString question)
 
 void MainWindow::aboutAction()
 {
-    QMessageBox msg(QMessageBox::Information, tr("Informations sur projet Paint"), tr("<strong>Projet Paint</strong><br><i>Année 2013-2014</i><br /><br><br />Développé par Kévin GEORGES et Mathieu PALOMBA<br><br />"), QMessageBox::Ok);
+    QMessageBox msg(QMessageBox::Information, tr("Informations about Paint project"), tr("<strong>Paint projet</strong><br><i>Years 2013-2014</i><br /><br />Developped by Kévin GEORGES and Mathieu PALOMBA<br /><br />CC-BY-NC-ND"), QMessageBox::Ok);
     QPixmap image = QPixmap(":/enib_logo");     // Permet de charger le logo qui sera dans la QMessageBox
-    //image = image.scaled(QSize(200,100));     // Permet de redimenssioner le logo enib pour faire rentrer le texte sur une ligne
+    //image = image.scaled(QSize(200, 100));     // Permet de redimenssioner le logo enib pour faire rentrer le texte sur une ligne
     msg.setIconPixmap(image);
     msg.setWindowIcon(QIcon(":/about_icon"));
+    msg.exec();
+}
+
+void MainWindow::aboutQtAction()
+{
+    QMessageBox::aboutQt(NULL);
+}
+
+void MainWindow::helpAction()
+{
+    QMessageBox msg(QMessageBox::Information, tr("Documentation about Paint projet"), tr("<strong>Documentation</strong><br /><br /> - If you want to draw a Polygon, you have to click on the pixmap, move you're mouse in the next point that you want, and after, release you're mouse button. To end you're draw, you have to click on the start point, that it's represent by a circle around the first point.<br /><br />Have fun with you're favorite Paint."), QMessageBox::Ok);
+    QPixmap image = QPixmap(":/documentation_icon");     // Permet de charger le logo qui sera dans la QMessageBox
+    image = image.scaled(QSize(64, 64));     // Permet de redimenssioner l'image
+    msg.setIconPixmap(image);
+    msg.setWindowIcon(QIcon(":/documentation_icon"));
     msg.exec();
 }
 
@@ -412,8 +522,11 @@ void MainWindow::showContextMenu(const QPoint& pos)
     QMenu myRightMenu;
     myRightMenu.addMenu(_shapeMenu);
     myRightMenu.addMenu(_penStyleMenu);
+    myRightMenu.addMenu(_brushStyleMenu);
     myRightMenu.addSeparator();
     myRightMenu.addMenu(_colorMenu);
+    myRightMenu.addSeparator();
+    myRightMenu.addAction(_eraseAction);
 
     // To execute the menu
     myRightMenu.exec(globalPos);

@@ -17,6 +17,7 @@ void Rubber::draw(QPixmap& pixmap)
     QPainter painter(&pixmap);
 
     // We set the rubber brush color (inside)
+    _brush.setStyle(Qt::SolidPattern);
     _brush.setColor(Qt::white);
 
     // We set the rubber pen color (outline)
