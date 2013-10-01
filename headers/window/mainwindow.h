@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <QActionGroup>
-#include <defines.h>
 #include <string.h>
 #include "myPainter.h"
 

@@ -5,18 +5,20 @@
 #include "shapes/shape.h"
 #include "factory/shapeFactory.h"
 
-const QString MyPainter::PEN_COLOR = "black";
-const Qt::PenStyle MyPainter::PEN_STYLE = Qt::SolidLine;
-const Qt::BrushStyle MyPainter::BRUSH_STYLE = Qt::SolidPattern;
-const QString MyPainter::PEN_FILL_OUT_COLOR = "white";
-const QString MyPainter::WINDOW_BACKGROUND_COLOR = "white";
+// Initialize the defaults parameters
+const ShapeFactory::Shape_enum MyPainter::DEFAULT_SHAPE =               ShapeFactory::freeHand;
+const QString MyPainter::PEN_COLOR =                                    "black";
+const Qt::PenStyle MyPainter::PEN_STYLE =                               Qt::SolidLine;
+const Qt::BrushStyle MyPainter::BRUSH_STYLE =                           Qt::SolidPattern;
+const QString MyPainter::PEN_FILL_OUT_COLOR =                           "white";
+const QString MyPainter::WINDOW_BACKGROUND_COLOR =                      "white";
 
 MyPainter::MyPainter(MainWindow* mainWindow):
 _shape(NULL)
 {
     _mainWindow = mainWindow;
 
-    _shapeToDraw.append(tr("Free hand"));
+    _shapeToDraw = DEFAULT_SHAPE;
 
     _windowBackgroundColor = QColor(WINDOW_BACKGROUND_COLOR);
     _pen.setColor(QColor(PEN_COLOR));
@@ -29,6 +31,8 @@ _shape(NULL)
 
     _buffer2 = QPixmap(_buffer.size());
     _buffer2.fill(Qt::transparent);                 // Window background color
+
+    this->setFixedSize(_mainWindow->size());
 }
 
 MyPainter::~MyPainter()
@@ -51,27 +55,7 @@ void MyPainter::mousePressEvent(QMouseEvent* event)
         if ( !_shape )
         {
             // Create the shape to draw
-            if(_shapeToDraw == tr("&Line")){
-                _shape = ShapeFactory::createShape(ShapeFactory::line, _pen, _brush);
-            }
-            else if(_shapeToDraw == tr("Rectangle")){
-                _shape = ShapeFactory::createShape(ShapeFactory::rectangle, _pen, _brush);
-            }
-            else if(_shapeToDraw == tr("Circle")){
-                _shape = ShapeFactory::createShape(ShapeFactory::circle, _pen, _brush);
-            }
-            else if(_shapeToDraw == tr("Polygon")){
-                _shape = ShapeFactory::createShape(ShapeFactory::polygon, _pen, _brush);
-            }
-            else if(_shapeToDraw == tr("Text")){
-                _shape = ShapeFactory::createShape(ShapeFactory::text, _pen, _brush);
-            }
-            else if(_shapeToDraw == tr("Free hand")){
-                _shape = ShapeFactory::createShape(ShapeFactory::freeHand, _pen, _brush);
-            }
-            else if(_shapeToDraw == tr("Rubber")){
-                _shape = ShapeFactory::createShape(ShapeFactory::rubber, _pen, _brush);
-            }
+            _shape = ShapeFactory::createShape(_shapeToDraw, _pen, _brush);
 
             if( _shape )
             {
@@ -109,8 +93,8 @@ void MyPainter::mouseMoveEvent(QMouseEvent* event)
             _shape->mouseMoveEvent( event );
 
             // We draw the shape into the buffer
-            if(_shapeToDraw == tr("Rubber"))    _shape->draw( _buffer );
-            else                                _shape->draw( _buffer2 );
+            if(_shapeToDraw == ShapeFactory::rubber)    _shape->draw( _buffer );
+            else                                        _shape->draw( _buffer2 );
 
             qDebug("Mouse move sended to the shape");
         }
@@ -191,9 +175,12 @@ void MyPainter::deleteShape()
     }
 }
 
-void MyPainter::eraseScreen()
+void MyPainter::eraseScreen(bool force)
 {
-    int response = QMessageBox::question(this, tr("Paint"), tr("Do you really want to erase you're drawing?"), QMessageBox::Yes|QMessageBox::No);
+    int response = QMessageBox::Yes;
+
+    if( ! force )
+        response = QMessageBox::question(this, tr("Paint"), tr("Do you really want to erase you're drawing?"), QMessageBox::Yes|QMessageBox::No);
 
     // If the user want to erase her drawing
     if (response == QMessageBox::Yes){
@@ -215,10 +202,9 @@ void MyPainter::eraseScreen()
     }
 }
 
-void MyPainter::shapeToDrawChange(QString newShapeToDraw)
+void MyPainter::shapeToDrawChange(ShapeFactory::Shape_enum newShapeToDraw)
 {
-    _shapeToDraw.clear();
-    _shapeToDraw.append(newShapeToDraw);
+    _shapeToDraw = newShapeToDraw;
 }
 
 void MyPainter::colorToApplyChange(QString colorMenuWhichGenerateEvent, QColor color)
@@ -235,13 +221,9 @@ void MyPainter::colorToApplyChange(QString colorMenuWhichGenerateEvent, QColor c
     }
 }
 
-void MyPainter::penStyleChange(QString newPenStyle)
+void MyPainter::penStyleChange(Qt::PenStyle newPenStyle)
 {
-    if(newPenStyle == tr("Solid line"))             _pen.setStyle(Qt::SolidLine);
-    else if(newPenStyle == tr("Dash line"))         _pen.setStyle(Qt::DashLine);
-    else if(newPenStyle == tr("Dot line"))          _pen.setStyle(Qt::DotLine);
-    else if(newPenStyle == tr("Dash dot line"))     _pen.setStyle(Qt::DashDotLine);
-    else if(newPenStyle == tr("Dash dot dot line")) _pen.setStyle(Qt::DashDotDotLine);
+    _pen.setStyle(newPenStyle);
 }
 
 void MyPainter::brushStyleChange(Qt::BrushStyle newBrushStyle)
@@ -254,13 +236,13 @@ void MyPainter::sizeChange(int newSize)
     _pen.setWidth(newSize);
 }
 
-void MyPainter::resizeEvent(QResizeEvent* event)
+/*void MyPainter::resizeEvent(QResizeEvent* event)
 {
     /*qDebug("Resize %d %d", this->size().width(), this->size().height());
     // Peut etre utiliser save et restore?
 this->_buffer = this->_buffer.scaled(this->size().width(), this->size().height());//, Qt::KeepAspectRatio);
 this->_buffer2 = this->_buffer2.scaled(this->size().width(), this->size().height());//, Qt::KeepAspectRatio);*/
-}
+//}
 
 QPixmap& MyPainter::getBuffer()
 {
