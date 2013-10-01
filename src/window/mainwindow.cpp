@@ -9,7 +9,7 @@
 #include "ui_mainwindow.h"
 #include "window/mainwindow.h"
 
-const int MainWindow::WINDOW_WIDTH = 1024;
+const int MainWindow::WINDOW_WIDTH = 900;
 const int MainWindow::WINDOW_HEIGHT = 900;
 const string MainWindow::SAVE_AS_SHORTCUT = "ctrl+shift+s";
 const string MainWindow::QUIT_SHORTCUT = "ctrl+q";
@@ -105,46 +105,50 @@ void MainWindow::_createToolbars()
 
 void MainWindow::_createDockWidget()
 {
-    _toolBar = addToolBar(tr("&Tools toolbar"));
+    _shapesToolBar = addToolBar(tr("&Shape toolbar"));
 
-    _toolBar->addWidget(new QLabel(tr("<b>Shapes</b>")));
-    _toolBar->addSeparator();
-    _toolBar->addAction(_drawFreeHandAction);
-    _toolBar->addAction(_drawLineAction);
-    _toolBar->addAction(_drawRectangleAction);
-    _toolBar->addAction(_drawCircleAction);
-    _toolBar->addAction(_drawPolygonAction);
-    _toolBar->addAction(_drawTextAction);
-    _toolBar->addAction(_rubberAction);
+    _shapesToolBar->addWidget(new QLabel(tr("<b>Shapes</b>")));
+    _shapesToolBar->addSeparator();
+    _shapesToolBar->addAction(_drawFreeHandAction);
+    _shapesToolBar->addAction(_drawLineAction);
+    _shapesToolBar->addAction(_drawRectangleAction);
+    _shapesToolBar->addAction(_drawCircleAction);
+    _shapesToolBar->addAction(_drawPolygonAction);
+    _shapesToolBar->addAction(_drawTextAction);
+    _shapesToolBar->addAction(_rubberAction);
 
-    _toolBar->addWidget(new QLabel(tr("<b>Line styles</b>")));
-    _toolBar->addSeparator();
-    _toolBar->addAction(_solidLineAction);
-    _toolBar->addAction(_dotLineAction);
-    _toolBar->addAction(_dashLineAction);
-    _toolBar->addAction(_dashDotLineAction);
-    _toolBar->addAction(_dashDotDotLineAction);
+    _penToolBar = addToolBar(tr("&Pen toolbar"));
+    _penToolBar->addWidget(new QLabel(tr("<b>Line styles</b>")));
+    _penToolBar->addSeparator();
+    _penToolBar->addAction(_solidLineAction);
+    _penToolBar->addAction(_dotLineAction);
+    _penToolBar->addAction(_dashLineAction);
+    _penToolBar->addAction(_dashDotLineAction);
+    _penToolBar->addAction(_dashDotDotLineAction);
+    _penToolBar->addAction(_chooseShapeColorAction);
 
-    _toolBar->addWidget(new QLabel(tr("<b>Brush styles</b>")));
-    _toolBar->addAction(_solidPatternAction);
-    _toolBar->addAction(_horizontalPatternAction);
-    _toolBar->addAction(_verticalPatternAction);
+    _brushToolBar = addToolBar(tr("&Brush toolbar"));
+    _brushToolBar->addWidget(new QLabel(tr("<b>Brush styles</b>")));
+    _brushToolBar->addSeparator();
+    _brushToolBar->addAction(_solidPatternAction);
+    _brushToolBar->addAction(_horizontalPatternAction);
+    _brushToolBar->addAction(_verticalPatternAction);
+    _brushToolBar->addAction(_chooseFillColorAction);
 
-    _toolBar->addWidget(new QLabel(tr("<b>Colors</b>")));
-    _toolBar->addSeparator();
-    _toolBar->addAction(_chooseShapeColorAction);
-    _toolBar->addAction(_chooseFillColorAction);
-
-    _toolBar->addWidget(new QLabel(tr("<b>Size</b>")));
-    _toolBar->addSeparator();
+    _otherToolBar = addToolBar(tr("&Others toolbar"));
+    _otherToolBar->addWidget(new QLabel(tr("<b>Size</b>")));
+    _otherToolBar->addSeparator();
     _sizeWidget = new QSpinBox();
     _sizeWidget->setMinimum(1);
     _sizeWidget->setMaximum(MAX_SIZE);
-    _toolBar->addWidget(_sizeWidget);
+    _otherToolBar->addWidget(_sizeWidget);
 
     //_toolBar->setToolButtonStyle( Qt::ToolButtonTextUnderIcon );      // To display icon with title
 
-     this->addToolBar(Qt::LeftToolBarArea, _toolBar);
+    this->addToolBar(Qt::LeftToolBarArea, _shapesToolBar);
+    this->addToolBar(Qt::LeftToolBarArea, _penToolBar);
+    this->addToolBar(Qt::LeftToolBarArea, _brushToolBar);
+    this->addToolBar(Qt::LeftToolBarArea, _otherToolBar);
 }
 
 void MainWindow::_createActions()

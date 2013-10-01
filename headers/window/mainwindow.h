@@ -85,7 +85,10 @@ private:
 
     QSpinBox* _sizeWidget;
 
-    QToolBar* _toolBar;
+    QToolBar* _shapesToolBar;
+    QToolBar* _penToolBar;
+    QToolBar* _brushToolBar;
+    QToolBar* _otherToolBar;
 
     MyPainter* _myPainter;
 
