@@ -236,14 +236,6 @@ void MyPainter::sizeChange(int newSize)
     _pen.setWidth(newSize);
 }
 
-/*void MyPainter::resizeEvent(QResizeEvent* event)
-{
-    /*qDebug("Resize %d %d", this->size().width(), this->size().height());
-    // Peut etre utiliser save et restore?
-this->_buffer = this->_buffer.scaled(this->size().width(), this->size().height());//, Qt::KeepAspectRatio);
-this->_buffer2 = this->_buffer2.scaled(this->size().width(), this->size().height());//, Qt::KeepAspectRatio);*/
-//}
-
 QPixmap& MyPainter::getBuffer()
 {
     return this->_buffer;

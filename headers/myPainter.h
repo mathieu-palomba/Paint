@@ -26,7 +26,6 @@ public:
     MyPainter(MainWindow* mainWindow);
     ~MyPainter();
 
-    //void resizeEvent(QResizeEvent* event);
     QPixmap& getBuffer();
 
 protected:

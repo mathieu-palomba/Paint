@@ -43,7 +43,11 @@ void Text::mousePressEvent(QMouseEvent* event)
     }
 
     // We signal the shape it's drawed
-    _drawed = true;
     emit drawed();
+    _drawed = true;
 }
 
+void Text::mouseReleaseEvent(QMouseEvent* event)
+{
+
+}

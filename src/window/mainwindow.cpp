@@ -464,6 +464,13 @@ void MainWindow::saveAsAction()
     if(!filename.isEmpty())
     {
         QStringList filesName = filename.split(".");
+
+        if(filesName.size() != 2)
+        {
+            filename += ".png";
+            filesName.push_back(".png");
+        }
+
         _myPainter->getBuffer().save(filename, filesName.at(1).toStdString().c_str());
 
         // We save the current path
