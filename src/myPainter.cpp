@@ -1,30 +1,38 @@
 #include <QInputDialog>
 #include <QDebug>
+#include <QMessageBox>
 #include "myPainter.h"
 #include "shapes/shape.h"
 #include "factory/shapeFactory.h"
 
-const QString MyPainter::PEN_COLOR = "black";
-const Qt::PenStyle MyPainter::PEN_STYLE = Qt::SolidLine;
-const QString MyPainter::PEN_FILL_OUT_COLOR = "white";
-const QString MyPainter::WINDOW_BACKGROUND_COLOR = "white";
+// Initialize the defaults parameters
+const ShapeFactory::Shape_enum MyPainter::DEFAULT_SHAPE =               ShapeFactory::freeHand;
+const QString MyPainter::PEN_COLOR =                                    "black";
+const Qt::PenStyle MyPainter::PEN_STYLE =                               Qt::SolidLine;
+const Qt::BrushStyle MyPainter::BRUSH_STYLE =                           Qt::SolidPattern;
+const QString MyPainter::PEN_FILL_OUT_COLOR =                           "white";
+const QString MyPainter::WINDOW_BACKGROUND_COLOR =                      "white";
 
-MyPainter::MyPainter(MainWindow* mainWindow)
+MyPainter::MyPainter(MainWindow* mainWindow):
+_shape(NULL)
 {
     _mainWindow = mainWindow;
 
-    _shapeToDraw.append(tr("Free hand"));
+    _shapeToDraw = DEFAULT_SHAPE;
 
     _windowBackgroundColor = QColor(WINDOW_BACKGROUND_COLOR);
     _pen.setColor(QColor(PEN_COLOR));
     _brush.setColor(QColor(PEN_FILL_OUT_COLOR));
     _pen.setStyle(PEN_STYLE);
+    _brushStyle = BRUSH_STYLE;
 
     _buffer = QPixmap(_mainWindow->size());
     _buffer.fill(_windowBackgroundColor);           // Window background color
 
     _buffer2 = QPixmap(_buffer.size());
     _buffer2.fill(Qt::transparent);                 // Window background color
+
+    this->setFixedSize(_mainWindow->size());
 }
 
 MyPainter::~MyPainter()
@@ -39,7 +47,7 @@ void MyPainter::mousePressEvent(QMouseEvent* event)
         // We check if the fill out color it's the same like background color to disable brush (fill out it's transparent)
         _brush.setStyle(Qt::NoBrush);
         if(_windowBackgroundColor != _brush.color()){
-            _brush.setStyle(Qt::SolidPattern);
+            _brush.setStyle(_brushStyle);
         }
 
         deleteShape();
@@ -47,27 +55,7 @@ void MyPainter::mousePressEvent(QMouseEvent* event)
         if ( !_shape )
         {
             // Create the shape to draw
-            if(_shapeToDraw == tr("&Line")){
-                _shape = ShapeFactory::createShape(ShapeFactory::line, _pen, _brush);
-            }
-            else if(_shapeToDraw == tr("Rectangle")){
-                _shape = ShapeFactory::createShape(ShapeFactory::rectangle, _pen, _brush);
-            }
-            else if(_shapeToDraw == tr("Circle")){
-                _shape = ShapeFactory::createShape(ShapeFactory::circle, _pen, _brush);
-            }
-            else if(_shapeToDraw == tr("Polygon")){
-                _shape = ShapeFactory::createShape(ShapeFactory::polygon, _pen, _brush);
-            }
-            else if(_shapeToDraw == tr("Text")){
-                _shape = ShapeFactory::createShape(ShapeFactory::text, _pen, _brush);
-            }
-            else if(_shapeToDraw == tr("Free hand")){
-                _shape = ShapeFactory::createShape(ShapeFactory::freeHand, _pen, _brush);
-            }
-            else if(_shapeToDraw == tr("Rubber")){
-                _shape = ShapeFactory::createShape(ShapeFactory::rubber, _pen, _brush);
-            }
+            _shape = ShapeFactory::createShape(_shapeToDraw, _pen, _brush);
 
             if( _shape )
             {
@@ -84,7 +72,7 @@ void MyPainter::mousePressEvent(QMouseEvent* event)
         if( _shape )
         {
             _shape->mousePressEvent( event );
-            qDebug("Press send");
+            qDebug("Mouse press sended to the shape");
         }
     }
 }
@@ -101,15 +89,14 @@ void MyPainter::mouseMoveEvent(QMouseEvent* event)
         // If the shape exist (the factory doesn't return NULL)
         if( _shape )
         {
-            qDebug("Move event");
             // Generate the mouse event to the shape (update the _endPoint)
             _shape->mouseMoveEvent( event );
 
             // We draw the shape into the buffer
-            if(_shapeToDraw == tr("Rubber"))    _shape->draw( _buffer );
-            else                                _shape->draw( _buffer2 );
+            if(_shapeToDraw == ShapeFactory::rubber)    _shape->draw( _buffer );
+            else                                        _shape->draw( _buffer2 );
 
-            qDebug("Moved event");
+            qDebug("Mouse move sended to the shape");
         }
 
         // We call the paintEvent method
@@ -124,12 +111,11 @@ void MyPainter::mouseReleaseEvent(QMouseEvent* event)
 
         if( _shape )
         {
-            qDebug("Release event");
             _buffer2.fill( Qt::transparent );
             _shape->draw( _buffer2 );
 
             _shape->mouseReleaseEvent( event );
-            qDebug("Released event");
+            qDebug("Mouse released sended to the shape");
         }
 
         // We call the paintEvent method
@@ -141,16 +127,14 @@ void MyPainter::mouseReleaseEvent(QMouseEvent* event)
 
 void MyPainter::paintEvent(QPaintEvent* event)
 {
-    qDebug("Paint window in paint event");
+    qDebug("Paint window");
     QPainter paintWindow(this);
 
     paintWindow.drawPixmap(0, 0, _buffer);          // Draw the pixmap at the position (x, y)
 
     if(_shape)
     {
-        qDebug("Paint event");
         paintWindow.drawPixmap(0, 0, _buffer2);     // Draw the pixmap at the position (x, y)
-        qDebug("Painted event");
     }
 }
 
@@ -158,10 +142,10 @@ void MyPainter::shapeDrawed()
 {
     if( _shape )
     {
-        qDebug("shapeDraw event");
         _buffer2.fill( Qt::transparent );
         _shape->draw( _buffer2 );
-        qDebug("shapeDrawed event");
+
+        qDebug("Shape drawed");
     }
 }
 
@@ -171,17 +155,19 @@ void MyPainter::deleteShape()
     {
         if( _shape->isDrawed() )
         {
-            qDebug()<< "Draw finish";
+            qDebug("Draw finish");
+
             // If the shape exist (the factory doesn't return NULL)
             if( _shape )
             {
                 // Generate the mouse event to the shape
-                qDebug("end draw");
+                qDebug("Last draw");
                 _shape->draw( _buffer );
 
-                qDebug() << "delete";
                 disconnect( _shape, SIGNAL(drawed()), this, SLOT(shapeDrawed()));
                 delete _shape;
+
+                qDebug() << "Shape deleted";
             }
 
             _shape = NULL;
@@ -189,31 +175,36 @@ void MyPainter::deleteShape()
     }
 }
 
-void MyPainter::eraseScreen()
+void MyPainter::eraseScreen(bool force)
 {
-    _buffer = QPixmap(_mainWindow->size());
-    _buffer.fill(_windowBackgroundColor);           // Window background color
+    int response = QMessageBox::Yes;
 
-    _buffer2 = QPixmap(_buffer.size());
-    _buffer2.fill(Qt::transparent);                 // Window background color
+    if( ! force )
+        response = QMessageBox::question(this, tr("Paint"), tr("Do you really want to erase you're drawing?"), QMessageBox::Yes|QMessageBox::No);
 
-    if( _shape )
-    {
-        disconnect( _shape, SIGNAL(drawed()), this, SLOT(shapeDrawed()));
+    // If the user want to erase her drawing
+    if (response == QMessageBox::Yes){
+        _buffer = QPixmap(_mainWindow->size());
+        _buffer.fill(_windowBackgroundColor);           // Window background color
 
-        delete _shape;
-        _shape = NULL;
+        _buffer2 = QPixmap(_buffer.size());
+        _buffer2.fill(Qt::transparent);                 // Window background color
+
+        if( _shape )
+        {
+            disconnect( _shape, SIGNAL(drawed()), this, SLOT(shapeDrawed()));
+
+            delete _shape;
+            _shape = NULL;
+        }
+
+        update();
     }
-
-    qDebug("update after erase");
-
-    update();
 }
 
-void MyPainter::shapeToDrawChange(QString newShapeToDraw)
+void MyPainter::shapeToDrawChange(ShapeFactory::Shape_enum newShapeToDraw)
 {
-    _shapeToDraw.clear();
-    _shapeToDraw.append(newShapeToDraw);
+    _shapeToDraw = newShapeToDraw;
 }
 
 void MyPainter::colorToApplyChange(QString colorMenuWhichGenerateEvent, QColor color)
@@ -230,26 +221,19 @@ void MyPainter::colorToApplyChange(QString colorMenuWhichGenerateEvent, QColor c
     }
 }
 
-void MyPainter::penStyleChange(QString newPenStyle)
+void MyPainter::penStyleChange(Qt::PenStyle newPenStyle)
 {
-    if(newPenStyle == tr("Solid line"))             _pen.setStyle(Qt::SolidLine);
-    else if(newPenStyle == tr("Dash line"))         _pen.setStyle(Qt::DashLine);
-    else if(newPenStyle == tr("Dot line"))          _pen.setStyle(Qt::DotLine);
-    else if(newPenStyle == tr("Dash dot line"))     _pen.setStyle(Qt::DashDotLine);
-    else if(newPenStyle == tr("Dash dot dot line")) _pen.setStyle(Qt::DashDotDotLine);
+    _pen.setStyle(newPenStyle);
+}
+
+void MyPainter::brushStyleChange(Qt::BrushStyle newBrushStyle)
+{
+    _brushStyle = newBrushStyle;
 }
 
 void MyPainter::sizeChange(int newSize)
 {
     _pen.setWidth(newSize);
-}
-
-void MyPainter::resizeEvent(QResizeEvent* event)
-{
-    /*qDebug("Resize %d %d", this->size().width(), this->size().height());
-    // Peut etre utiliser save et restore?
-this->_buffer = this->_buffer.scaled(this->size().width(), this->size().height());//, Qt::KeepAspectRatio);
-this->_buffer2 = this->_buffer2.scaled(this->size().width(), this->size().height());//, Qt::KeepAspectRatio);*/
 }
 
 QPixmap& MyPainter::getBuffer()

@@ -20,6 +20,7 @@ private:
 
 public slots:
     void mousePressEvent(QMouseEvent* event);
+    void mouseReleaseEvent(QMouseEvent* event);
 };
 
 #endif // TEXT_H
